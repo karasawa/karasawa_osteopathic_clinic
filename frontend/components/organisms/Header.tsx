@@ -9,6 +9,7 @@ import Dialog from "../molecules/Dialog";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const menuWrap = document.querySelector(".bm-menu-wrap");
@@ -59,11 +60,30 @@ const Header = () => {
               <MenuLink>アクセス</MenuLink>
             </Link> */}
             <BurgerMenuWrapper>
-              <BurgerMenu />
+              <BurgerMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
             </BurgerMenuWrapper>
           </MainWrapper>
         </Toolbar>
       </AppBar>
+      <SlideMenu
+        style={
+          menuOpen
+            ? {
+                width: "300px",
+              }
+            : { width: 0, height: 0 }
+        }
+      >
+        <p
+          style={
+            menuOpen
+              ? { backgroundColor: "red", opacity: 1 }
+              : { display: "none" }
+          }
+        >
+          aaa
+        </p>
+      </SlideMenu>
       <Dialog open={open} setOpen={setOpen} />
     </Box>
   );
@@ -134,4 +154,15 @@ const ReserveButton = styled.button`
   &:hover {
     background-color: #000;
   }
+`;
+
+const SlideMenu = styled.div`
+  width: 300px;
+  height: 600px;
+  background-color: #000;
+  position: absolute;
+  z-index: 100;
+  right: 0;
+  opacity: 0.8;
+  transition: all 0.5s ease-out;
 `;

@@ -22,8 +22,6 @@ const Slider = () => {
     else if (count === 2) setCount(0);
   };
 
-  //   setInterval(leftSlide, 6000);
-
   return (
     <ImageWrapper>
       <IconButton
