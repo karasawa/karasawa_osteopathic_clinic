@@ -24,7 +24,6 @@ const Layout: FC<Props> = ({ children, title = "default title" }) => {
 export default Layout;
 
 const MainContainer = styled.div`
-  background-color: #555;
   width: 100%;
   height: 100vh;
 `;

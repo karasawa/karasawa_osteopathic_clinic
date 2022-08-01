@@ -127,3 +127,56 @@
     filter: invert(1);
   }
 }
+
+.mainwrapper {
+  background-color: #88a476;
+  width: 37px;
+  height: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+}
+
+.firstbar {
+  width: 23px;
+  height: 3px;
+  background-color: #000;
+  margin-top: 3px;
+}
+
+.secondbar {
+  width: 23px;
+  height: 3px;
+  background-color: #000;
+}
+
+.thirdbar {
+  width: 23px;
+  height: 3px;
+  background-color: #000;
+  margin-bottom: 3px;
+}
+
+.firstchangebar {
+  width: 23px;
+  height: 3px;
+  background-color: #fff;
+  margin-top: 3px;
+  transform: translateY(10px) rotate(-45deg);
+}
+
+.secondchangebar {
+  width: 23px;
+  height: 3px;
+  background-color: #88a476;
+}
+
+.thirdchangebar {
+  width: 23px;
+  height: 3px;
+  background-color: #fff;
+  margin-bottom: 3px;
+  transform: translateY(-10px) rotate(45deg);
+}
