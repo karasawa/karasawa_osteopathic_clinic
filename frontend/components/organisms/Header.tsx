@@ -1,7 +1,7 @@
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Link from "next/link";
 import BurgerMenu from "../molecules/BurgerMenu";
 import { useEffect, useState } from "react";
@@ -74,15 +74,23 @@ const Header = () => {
             : { width: 0, height: 0 }
         }
       >
-        <p
-          style={
-            menuOpen
-              ? { backgroundColor: "red", opacity: 1 }
-              : { display: "none" }
-          }
-        >
-          aaa
-        </p>
+        <MenuWrapper style={menuOpen ? {} : { display: "none" }}>
+          <Link href="#">
+            <MenuList>当院の特徴</MenuList>
+          </Link>
+          <Link href="#">
+            <MenuList>対応症状</MenuList>
+          </Link>
+          <Link href="#">
+            <MenuList>院長紹介</MenuList>
+          </Link>
+          <Link href="#">
+            <MenuList>FAQ</MenuList>
+          </Link>
+          <Link href="/access">
+            <MenuList>アクセス</MenuList>
+          </Link>
+        </MenuWrapper>
       </SlideMenu>
       <Dialog open={open} setOpen={setOpen} />
     </Box>
@@ -108,14 +116,6 @@ const TitleWrapper = styled.div`
 const Title = styled.h2`
   color: #281914;
   cursor: pointer;
-`;
-
-const MenuLink = styled.a`
-  color: #281914;
-  cursor: pointer;
-  &:hover {
-    color: #000;
-  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -165,4 +165,34 @@ const SlideMenu = styled.div`
   right: 0;
   opacity: 0.8;
   transition: all 0.5s ease-out;
+`;
+
+const fadeUp = keyframes`
+0% {
+  opacity: 0;
+}
+80% {
+  opacity: 0;
+}
+100% {
+  opacity: 1;
+}
+`;
+
+const MenuWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  animation: ${fadeUp} 0.5s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards;
+`;
+
+const MenuList = styled.h3`
+  font-size: 25px;
+  color: #b4cf9e;
+  cursor: pointer;
+  &:hover {
+    color: #fff;
+  }
 `;

@@ -13,7 +13,7 @@ const BurgerMenu: FC<Props> = ({ menuOpen, setMenuOpen }) => {
         <FirstBar
           style={
             menuOpen
-              ? { transform: "translateY(10px) rotate(-45deg)" }
+              ? { transform: "translateY(10px) rotate(-225deg)" }
               : { transform: "none" }
           }
         ></FirstBar>
@@ -27,7 +27,7 @@ const BurgerMenu: FC<Props> = ({ menuOpen, setMenuOpen }) => {
         <ThirdBar
           style={
             menuOpen
-              ? { transform: "translateY(-10px) rotate(45deg)" }
+              ? { transform: "translateY(-10px) rotate(225deg)" }
               : { transform: "none" }
           }
         ></ThirdBar>

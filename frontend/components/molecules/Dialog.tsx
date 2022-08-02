@@ -38,7 +38,7 @@ const Dialog: FC<Props> = ({ open, setOpen }) => {
           >
             <ClearIcon />
           </IconButton>
-          <TelNumber>080-1234-5678</TelNumber>
+          <TelNumber>TEL：080-1234-5678</TelNumber>
           <TelText href="tel:080-1234-5678">
             電話をかけてもよろしいですか？
           </TelText>

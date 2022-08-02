@@ -54,9 +54,9 @@ const Slider = () => {
 export default Slider;
 
 const ImageWrapper = styled.div`
-  flex: 0.65;
+  flex: 0.7;
   position: relative;
-  height: 670px;
+  height: 660px;
   border: 1px solid #281914;
   background-color: #000;
 `;
