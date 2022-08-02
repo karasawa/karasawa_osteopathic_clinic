@@ -55,7 +55,7 @@ const TelNumber = styled.h3``;
 const TelText = styled.a`
   cursor: pointer;
   &:hover {
-    color: #b4cf9e;
-    border-bottom: 1px solid #b4cf9e;
+    color: #74905d;
+    border-bottom: 1px solid #74905d;
   }
 `;

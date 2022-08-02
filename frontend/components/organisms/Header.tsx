@@ -139,7 +139,7 @@ const TellButton = styled.button`
   cursor: pointer;
   font-family: "Shippori Mincho", serif;
   &:hover {
-    background-color: #000;
+    background-color: #74905d;
   }
 `;
 const ReserveButton = styled.button`
@@ -152,7 +152,7 @@ const ReserveButton = styled.button`
   cursor: pointer;
   font-family: "Shippori Mincho", serif;
   &:hover {
-    background-color: #000;
+    background-color: #74905d;
   }
 `;
 
@@ -193,6 +193,6 @@ const MenuList = styled.h3`
   color: #b4cf9e;
   cursor: pointer;
   &:hover {
-    color: #fff;
+    color: #547443;
   }
 `;

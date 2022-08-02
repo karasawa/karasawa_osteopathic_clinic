@@ -22,11 +22,11 @@ const ButtonWrapper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  color: #fff;
+  color: #000;
   margin-left: 20px;
   cursor: pointer;
   &:hover {
-    color: #000;
+    color: #74905d;
   }
 `;
 

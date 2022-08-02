@@ -25,9 +25,7 @@ const Map = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <Marker position={[36.6674489, 138.2208493]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
+        <Popup>柄澤整骨院</Popup>
       </Marker>
     </MapContainer>
   );

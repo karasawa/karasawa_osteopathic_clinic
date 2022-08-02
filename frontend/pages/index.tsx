@@ -115,7 +115,7 @@ const W2Text = styled.h3`
   margin: 15px 0 0 0;
   font-size: 17px;
   font-weight: 500;
-  color: #281914;
+  color: #547443;
   opacity: 0.7;
   animation: ${fadeUp} 4s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards;
 `;
