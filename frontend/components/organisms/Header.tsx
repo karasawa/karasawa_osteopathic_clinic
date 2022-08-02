@@ -75,7 +75,10 @@ const Header = () => {
         }
       >
         <MenuWrapper style={menuOpen ? {} : { display: "none" }}>
-          <Link href="#">
+          <Link href="/">
+            <MenuList>ホーム</MenuList>
+          </Link>
+          <Link href="/introduction">
             <MenuList>当院の特徴</MenuList>
           </Link>
           <Link href="#">

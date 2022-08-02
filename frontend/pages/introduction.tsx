@@ -2,37 +2,29 @@ import type { NextPage } from "next";
 import { useMediaQuery } from "@mui/material";
 import Layout from "../components/Layout";
 import styled, { keyframes } from "styled-components";
-import Slider from "../components/organisms/Slider";
+import Image from "next/image";
+import BuckButton from "../components/atoms/BuckButton";
 
-const Home: NextPage = () => {
+const Introduction: NextPage = () => {
   const matches: boolean = useMediaQuery("(min-width:577px)");
 
   return (
     <div style={{ margin: 0, padding: 0 }}>
       {matches ? (
-        <Layout title="home">
+        <Layout title="introduction">
           <MainWrapper>
-            <Headline>
-              <HeadlineWrapper1>
-                <W1Text1>痛 み と 向 き 合 い</W1Text1>
-                <W1Text2>自 身 の 体 を</W1Text2>
-                <W1Text3>知 る 。</W1Text3>
-              </HeadlineWrapper1>
-              <HeadlineWrapper2>
-                <W2Text>日本人の</W2Text>
-                <W2Text>四人に一人が</W2Text>
-                <W2Text>腰痛に悩んでいると</W2Text>
-                <W2Text>言われる現代において、</W2Text>
-                <W2Text>痛みとの付き合い方は重要です。</W2Text>
-                <W2Text>当院では、けして無理をすることのない、</W2Text>
-                <W2Text>痛みとの正しい付き合い方を提供いたします。</W2Text>
-              </HeadlineWrapper2>
-            </Headline>
-            <Slider />
+            <Image src="/okunai.jpg" layout="fill" style={{ opacity: 0.8 }} />
+            <BuckButton />
+            <Question>このようなお悩み、お持ちではありませんか？</Question>
           </MainWrapper>
+          <SubWrapper>
+            <WorriesWrapper>
+              <Worry1></Worry1>
+            </WorriesWrapper>
+          </SubWrapper>
         </Layout>
       ) : (
-        <Layout title="home">
+        <Layout title="introduction">
           <p>aa</p>
         </Layout>
       )}
@@ -40,7 +32,7 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Introduction;
 
 const MainWrapper = styled.div`
   width: 100%;
@@ -48,7 +40,33 @@ const MainWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  background-color: #b4cf9e;
+  border: 1px solid #281914;
+  position: relative;
 `;
+
+const Question = styled.h3`
+  z-index: 100;
+  position: absolute;
+  margin-bottom: 55px;
+  font-size: 22px;
+`;
+
+const SubWrapper = styled.div`
+  width: 100%;
+  height: 660px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #b4cf9e;
+  border: 1px solid #281914;
+  border-top: none;
+`;
+
+const WorriesWrapper = styled.div``;
+
+const worry1 = styled.p``;
 
 const Headline = styled.div`
   flex: 0.3;
@@ -59,7 +77,6 @@ const Headline = styled.div`
   background-color: #b4cf9e;
   border-right: none;
   position: relative;
-  padding: 20px 0 20px 33px;
 `;
 
 const HeadlineWrapper1 = styled.div`
