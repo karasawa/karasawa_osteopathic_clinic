@@ -28,7 +28,9 @@ const Home: NextPage = () => {
                 <W2Text>痛みとの正しい付き合い方を提供いたします。</W2Text>
               </HeadlineWrapper2>
             </Headline>
-            <Slider />
+            <ImageWrapper>
+              <Slider />
+            </ImageWrapper>
           </MainWrapper>
         </Layout>
       ) : (
@@ -118,4 +120,12 @@ const W2Text = styled.h3`
   color: #547443;
   opacity: 0.7;
   animation: ${fadeUp} 4s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards;
+`;
+
+const ImageWrapper = styled.div`
+  flex: 0.7;
+  position: relative;
+  height: 660px;
+  border: 1px solid #281914;
+  background-color: #000;
 `;

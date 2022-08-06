@@ -4,11 +4,17 @@ import Image from "next/image";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import IconButton from "@mui/material/IconButton";
+import { useRouter } from "next/router";
 
 const Slider = () => {
+  const router = useRouter();
   const [count, setCount] = useState(1);
 
   const imageArr = ["/shunpudo.jpg", "/honjo.jpg", "/pug.jpg"];
+
+  const imageSubArr = ["/hana.jpg", "/shitakara.jpg", "/nanikore.jpg"];
+
+  console.log(router.pathname);
 
   const leftSlide = async () => {
     if (count === 0) setCount(2);
@@ -23,10 +29,24 @@ const Slider = () => {
   };
 
   return (
-    <ImageWrapper>
+    <SliderWrapper>
       <IconButton
         onClick={leftSlide}
-        sx={{ position: "relative", zIndex: 100 }}
+        sx={
+          router.pathname === "/introduction"
+            ? {
+                position: "relative",
+                zIndex: 100,
+                top: "45%",
+                left: "-50px",
+                bgcolor: "#000",
+                "&:hover": {
+                  bgcolor: "#000",
+                  opacity: 0.7,
+                },
+              }
+            : { position: "relative", zIndex: 100 }
+        }
       >
         <KeyboardDoubleArrowLeftIcon
           sx={{
@@ -35,10 +55,32 @@ const Slider = () => {
           }}
         />
       </IconButton>
-      <Image src={imageArr[count]} layout="fill" style={{ opacity: 0.9 }} />
+      <Image
+        src={
+          router.pathname === "/introduction"
+            ? imageSubArr[count]
+            : imageArr[count]
+        }
+        layout="fill"
+        style={{ opacity: 0.9 }}
+      />
       <IconButton
         onClick={rightSlide}
-        sx={{ position: "relative", zIndex: 100 }}
+        sx={
+          router.pathname === "/introduction"
+            ? {
+                position: "relative",
+                zIndex: 100,
+                top: "45%",
+                right: "-382px",
+                bgcolor: "#000",
+                "&:hover": {
+                  bgcolor: "#000",
+                  opacity: 0.7,
+                },
+              }
+            : { position: "relative", zIndex: 100 }
+        }
       >
         <KeyboardDoubleArrowRightIcon
           sx={{
@@ -47,16 +89,14 @@ const Slider = () => {
           }}
         />
       </IconButton>
-    </ImageWrapper>
+    </SliderWrapper>
   );
 };
 
 export default Slider;
 
-const ImageWrapper = styled.div`
-  flex: 0.7;
+const SliderWrapper = styled.div`
   position: relative;
-  height: 660px;
-  border: 1px solid #281914;
-  background-color: #000;
+  height: 100%;
+  width: 100%;
 `;

@@ -95,4 +95,5 @@ const Title = styled.h3`
 const Text = styled.p`
   margin: 10px 0 0 0;
   font-size: 18px;
+  padding-left: 20px;
 `;
