@@ -6,8 +6,8 @@ import ClearIcon from "@mui/icons-material/Clear";
 import IconButton from "@mui/material/IconButton";
 
 type Props = {
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
+  tellOpen: boolean;
+  setTellOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const style = {
@@ -27,13 +27,13 @@ const style = {
   alignItems: "center",
 };
 
-const Dialog: FC<Props> = ({ open, setOpen }) => {
+const TellDialog: FC<Props> = ({ tellOpen, setTellOpen }) => {
   return (
     <div>
-      <Modal open={open} onClose={() => setOpen(false)}>
+      <Modal open={tellOpen} onClose={() => setTellOpen(false)}>
         <Box sx={style}>
           <IconButton
-            onClick={() => setOpen(false)}
+            onClick={() => setTellOpen(false)}
             sx={{ position: "absolute", top: 0, right: 0 }}
           >
             <ClearIcon />
@@ -48,7 +48,7 @@ const Dialog: FC<Props> = ({ open, setOpen }) => {
   );
 };
 
-export default Dialog;
+export default TellDialog;
 
 const TelNumber = styled.h3``;
 

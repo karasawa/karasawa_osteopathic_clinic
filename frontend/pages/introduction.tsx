@@ -63,12 +63,14 @@ const Introduction: NextPage = () => {
                     <OpeFlowText>ヒアリング</OpeFlowText>
                     <OpeFlowText>＆</OpeFlowText>
                     <OpeFlowText>カウンセリング</OpeFlowText>
+                    <Step>1st step</Step>
                   </OpeFlowWrapper>
                   <IconWrapper style={{ animationDelay: "2s" }}>
                     <ArrowRightIcon sx={{ fontSize: "50px" }} />
                   </IconWrapper>
                   <OpeFlowWrapper style={{ animationDelay: "4s" }}>
                     <OpeFlowText>施術</OpeFlowText>
+                    <Step>2nd step</Step>
                   </OpeFlowWrapper>
                   <IconWrapper style={{ animationDelay: "6s" }}>
                     <ArrowRightIcon sx={{ fontSize: "50px" }} />
@@ -77,6 +79,7 @@ const Introduction: NextPage = () => {
                     <OpeFlowText>効果測定</OpeFlowText>
                     <OpeFlowText>＆</OpeFlowText>
                     <OpeFlowText>今後のアドバイス</OpeFlowText>
+                    <Step>3rd step</Step>
                   </OpeFlowWrapper>
                 </OpeFlowContainer>
               </Introduction2>
@@ -127,10 +130,12 @@ const Question = styled.h3`
 `;
 
 const WorriesWrapper = styled.div`
-  background-color: #fac7c1;
+  //   background-color: #fac7c1;
+  background-color: #b4cf9e;
   width: 100%;
   display: flex;
   height: 100px;
+  color: #281914;
 `;
 
 const Worry1 = styled.div`
@@ -179,7 +184,7 @@ const SubWrapper = styled.div`
   height: 660px;
   display: flex;
   align-items: center;
-  background-color: #fac7c1;
+  background-color: #b4cf9e;
   border: 1px solid #281914;
   border-top: none;
 `;
@@ -196,7 +201,7 @@ const ImageSubWrapper = styled.div`
   flex: 1;
   display: flex;
   padding: 50px 100px;
-  background-color: #fac7c1;
+  background-color: #b4cf9e;
 `;
 
 const IntroductionWrapper = styled.div`
@@ -204,12 +209,13 @@ const IntroductionWrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #fac7c1;
+  background-color: #b4cf9e;
+  color: #281914;
 `;
 
 const Introduction1 = styled.div`
   flex: 0.5;
-  background-color: #fac7c1;
+  background-color: #b4cf9e;
   border-bottom: 1px solid #281914;
 `;
 
@@ -226,7 +232,7 @@ const Introduction2 = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-color: #fac7c1;
+  background-color: #b4cf9e;
   padding: 10px;
 `;
 
@@ -234,7 +240,7 @@ const OpeFlowContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #fac7c1;
+  background-color: #b4cf9e;
   width: 100%;
   //   padding: 10px;
 `;
@@ -271,6 +277,7 @@ const fadeUp = keyframes`
 `;
 
 const OpeFlowWrapper = styled.div`
+  position: relative;
   width: 210px;
   height: 210px;
   background-color: #000;
@@ -297,39 +304,10 @@ const OpeFlowText = styled.p`
   margin: 0;
 `;
 
-const W1Text1 = styled.p`
-  margin: 25px 0 0 0;
-  font-size: 42px;
-  font-weight: bold;
-  animation: ${fadeUp} 1.2s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards;
-`;
-
-const W1Text2 = styled.p`
-  margin: 10px 0 0 0;
-  font-size: 42px;
-  font-weight: bold;
-  animation: ${fadeUp} 2.2s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards;
-`;
-
-const W1Text3 = styled.p`
-  margin: 10px 0 0 0;
-  font-size: 42px;
-  font-weight: bold;
-  animation: ${fadeUp} 3.2s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards;
-`;
-
-const HeadlineWrapper2 = styled.div`
-  flex: 0.5;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-`;
-
-const W2Text = styled.h3`
-  margin: 15px 0 0 0;
-  font-size: 17px;
-  font-weight: 600;
-  color: #547443;
-  opacity: 0.7;
-  animation: ${fadeUp} 4s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards;
+const Step = styled.p`
+  position: absolute;
+  top: 0;
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: #b4cf9e;
 `;

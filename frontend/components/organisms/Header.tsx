@@ -5,10 +5,12 @@ import styled, { keyframes } from "styled-components";
 import Link from "next/link";
 import BurgerMenu from "../molecules/BurgerMenu";
 import { useEffect, useState } from "react";
-import Dialog from "../molecules/Dialog";
+import TellDialog from "../molecules/TellDialog";
+import ReserveDialog from "../molecules/ReserveDialog";
 
 const Header = () => {
-  const [open, setOpen] = useState(false);
+  const [tellOpen, setTellOpen] = useState(false);
+  const [reserveOpen, setReserveOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -33,32 +35,18 @@ const Header = () => {
         <Toolbar sx={{ height: "55px" }}>
           <MainWrapper>
             <ButtonWrapper>
-              <TellButton onClick={() => setOpen(true)}>電話する</TellButton>
-              <ReserveButton>予約する</ReserveButton>
+              <TellButton onClick={() => setTellOpen(true)}>
+                電話する
+              </TellButton>
+              <ReserveButton onClick={() => setReserveOpen(true)}>
+                予約する
+              </ReserveButton>
             </ButtonWrapper>
             <TitleWrapper>
               <Link href="/">
                 <Title>柄澤整骨院</Title>
               </Link>
             </TitleWrapper>
-            {/* <Link href="#">
-              <MenuLink>当院の特徴</MenuLink>
-            </Link>
-            <Link href="#">
-              <MenuLink>対応症状</MenuLink>
-            </Link>
-            <Link href="#">
-              <MenuLink>施術の流れ</MenuLink>
-            </Link>
-            <Link href="#">
-              <MenuLink>院長紹介</MenuLink>
-            </Link>
-            <Link href="#">
-              <MenuLink>FAQ</MenuLink>
-            </Link>
-            <Link href="#">
-              <MenuLink>アクセス</MenuLink>
-            </Link> */}
             <BurgerMenuWrapper>
               <BurgerMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
             </BurgerMenuWrapper>
@@ -81,21 +69,25 @@ const Header = () => {
           <Link href="/introduction">
             <MenuList>当院の特徴</MenuList>
           </Link>
-          <Link href="#">
+          <Link href="/symptom">
             <MenuList>対応症状</MenuList>
           </Link>
-          <Link href="#">
+          {/* <Link href="#">
             <MenuList>院長紹介</MenuList>
           </Link>
           <Link href="#">
             <MenuList>FAQ</MenuList>
-          </Link>
+          </Link> */}
           <Link href="/access">
             <MenuList>アクセス</MenuList>
           </Link>
         </MenuWrapper>
       </SlideMenu>
-      <Dialog open={open} setOpen={setOpen} />
+      <TellDialog tellOpen={tellOpen} setTellOpen={setTellOpen} />
+      <ReserveDialog
+        reserveOpen={reserveOpen}
+        setReserveOpen={setReserveOpen}
+      />
     </Box>
   );
 };
