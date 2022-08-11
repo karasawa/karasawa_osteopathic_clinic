@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -11,6 +11,12 @@ import ja from "date-fns/locale/ja";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
+import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
+import SnackBar from "../atoms/SnackBar";
+
+export interface State extends SnackbarOrigin {
+  open: boolean;
+}
 
 type FormValues = {
   email: string;
@@ -24,11 +30,10 @@ const schema = yup.object({
     .string()
     .email("メールアドレスの形式が正しくありません")
     .required("メールアドレスを入力してください"),
-  //   password: yup.string().min(8, "8文字以上で入力してください"),
   phoneNumber: yup
     .string()
     .required("電話番号を入力してください")
-    .matches(/\d{2,4}-?\d{3,4}-?\d{3,4}$/, "ハイブンを含めて入力してください"),
+    .matches(/\d{2,4}-\d{3,4}-\d{3,4}/, "ハイブンを含めて入力してください"),
 });
 
 const ReserveForm = () => {
@@ -39,6 +44,11 @@ const ReserveForm = () => {
   const [time, setTime] = useState<Date | null>(
     new Date("2018-01-01T00:00:00.000Z")
   );
+  const [state, setState] = useState<State>({
+    open: false,
+    vertical: "top",
+    horizontal: "left",
+  });
 
   const {
     register,
@@ -60,61 +70,65 @@ const ReserveForm = () => {
     setUsername("");
     setEmail("");
     setPhoneNumber("");
+    setState({ ...state, open: true });
   };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
-      <form onSubmit={handleSubmit(reserve)}>
-        <Stack spacing={3}>
-          <TextField
-            size="small"
-            label="お名前"
-            {...register("username")}
-            error={"username" in errors}
-            helperText={errors.username?.message}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            sx={{ width: 400 }}
-          />
-          <TextField
-            size="small"
-            label="メールアドレス"
-            {...register("email")}
-            error={"email" in errors}
-            helperText={errors.email?.message}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            size="small"
-            label="電話番号"
-            {...register("phoneNumber")}
-            error={"phoneNumber" in errors}
-            helperText={errors.phoneNumber?.message}
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-          <DatePicker
-            label="予約日"
-            openTo="year"
-            views={["year", "month", "day"]}
-            value={date}
-            onChange={(newValue) => {
-              setDate(newValue);
-            }}
-            inputFormat="yyyy年MM月dd日"
-            mask="____年__月__日"
-            renderInput={(params) => <TextField size="small" {...params} />}
-          />
-          <TimePicker
-            label="予約時間"
-            value={time}
-            onChange={setTime}
-            renderInput={(params) => <TextField size="small" {...params} />}
-          />
-          <ReserveButton type="submit">予約する</ReserveButton>
-        </Stack>
-      </form>
+      <Fragment>
+        <form onSubmit={handleSubmit(reserve)}>
+          <Stack spacing={3}>
+            <TextField
+              size="small"
+              label="お名前"
+              {...register("username")}
+              error={"username" in errors}
+              helperText={errors.username?.message}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              sx={{ width: 400 }}
+            />
+            <TextField
+              size="small"
+              label="メールアドレス"
+              {...register("email")}
+              error={"email" in errors}
+              helperText={errors.email?.message}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              size="small"
+              label="電話番号"
+              {...register("phoneNumber")}
+              error={"phoneNumber" in errors}
+              helperText={errors.phoneNumber?.message}
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+            <DatePicker
+              label="予約日"
+              openTo="year"
+              views={["year", "month", "day"]}
+              value={date}
+              onChange={(newValue) => {
+                setDate(newValue);
+              }}
+              inputFormat="yyyy年MM月dd日"
+              mask="____年__月__日"
+              renderInput={(params) => <TextField size="small" {...params} />}
+            />
+            <TimePicker
+              label="予約時間"
+              value={time}
+              onChange={setTime}
+              renderInput={(params) => <TextField size="small" {...params} />}
+            />
+            <ReserveButton type="submit">予約する</ReserveButton>
+          </Stack>
+        </form>
+        <SnackBar state={state} setState={setState} />
+      </Fragment>
     </LocalizationProvider>
   );
 };
