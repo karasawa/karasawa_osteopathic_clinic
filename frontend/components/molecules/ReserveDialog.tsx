@@ -16,7 +16,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 500,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 6,
@@ -39,6 +39,12 @@ const ReserveDialog: FC<Props> = ({ reserveOpen, setReserveOpen }) => {
           >
             <ClearIcon />
           </IconButton>
+          <H3Text>ご予約情報を入力してください。</H3Text>
+          <ReceptionWrapper>
+            <PText>受付時間</PText>
+            <PText>平日　9:00～12:30　/　15:00～20:00</PText>
+            <PText style={{ marginBottom: "16px" }}>土曜　9:00～14:30</PText>
+          </ReceptionWrapper>
           <ReserveForm />
         </Box>
       </Modal>
@@ -47,3 +53,19 @@ const ReserveDialog: FC<Props> = ({ reserveOpen, setReserveOpen }) => {
 };
 
 export default ReserveDialog;
+
+const H3Text = styled.h3`
+  margin-top: 0;
+  margin-bottom: 16px;
+`;
+
+const PText = styled.p`
+  margin: 0;
+  font-size: 13px;
+`;
+
+const ReceptionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+`;

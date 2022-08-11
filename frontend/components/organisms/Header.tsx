@@ -137,6 +137,7 @@ const TellButton = styled.button`
     background-color: #74905d;
   }
 `;
+
 const ReserveButton = styled.button`
   padding: 10px 14px;
   margin-left: 5px;
