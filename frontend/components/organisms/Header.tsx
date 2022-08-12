@@ -72,14 +72,17 @@ const Header = () => {
           <Link href="/symptom">
             <MenuList>対応症状</MenuList>
           </Link>
-          {/* <Link href="#">
+          <Link href="#">
             <MenuList>院長紹介</MenuList>
           </Link>
-          <Link href="#">
+          {/* <Link href="#">
             <MenuList>FAQ</MenuList>
           </Link> */}
           <Link href="/access">
             <MenuList>アクセス</MenuList>
+          </Link>
+          <Link href="/admin_login">
+            <MenuList>管理者ログイン</MenuList>
           </Link>
         </MenuWrapper>
       </SlideMenu>

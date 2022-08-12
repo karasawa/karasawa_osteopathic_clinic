@@ -14,6 +14,10 @@ class UserSerializer(serializers.ModelSerializer):
             }
         }
 
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
+
 class ReservationSerializer(serializers.ModelSerializer):
 
     created_at = serializers.DateTimeField(format='%Y-%m-%d %H:$M:%S', read_only=True)

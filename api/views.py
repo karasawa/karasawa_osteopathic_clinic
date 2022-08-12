@@ -2,6 +2,11 @@ from .models import Reservation, Symptom
 from .serializers import UserSerializer, ReservationSerializer, SymptomSerializer
 from rest_framework import generics, viewsets
 
+class CreateUserView(generics.CreateAPIView):
+    serializer_class = UserSerializer
+    permission_classes = []
+    authentication_classes = []
+
 class ReservationListView(generics.ListAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
