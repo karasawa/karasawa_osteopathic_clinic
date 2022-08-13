@@ -36,7 +36,6 @@ const AuthForm = () => {
         .then((data) => {
           const options = { path: "/" };
           cookie.set("access_token", data.access, options);
-          cookie.set("request_user", username, options);
         });
       router.push("/admin_home");
     } catch (err) {
@@ -77,9 +76,6 @@ const AuthForm = () => {
             <TextField
               size="small"
               label="ユーザー名"
-              //   {...register("email")}
-              //   error={"email" in errors}
-              //   helperText={errors.email?.message}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -87,12 +83,11 @@ const AuthForm = () => {
               size="small"
               label="パスワード"
               type="password"
-              //   {...register("email")}
-              //   error={"email" in errors}
-              //   helperText={errors.email?.message}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              sx={{ marginTop: "30px" }}
+              sx={{
+                marginTop: "30px",
+              }}
             />
           </SubWrapper>
           <H5Text>
@@ -101,16 +96,6 @@ const AuthForm = () => {
             </Link>
           </H5Text>
           <Button type="submit">{isLogin ? "ログイン" : "新規作成"}</Button>
-          {isLogin ? (
-            <H5Text>
-              アカウントをお持ちでない場合{" "}
-              <A onClick={(e) => setIsLogin(!isLogin)}>新規作成</A>
-            </H5Text>
-          ) : (
-            <H5Text>
-              <A onClick={(e) => setIsLogin(!isLogin)}>戻る</A>
-            </H5Text>
-          )}
         </MainWrapper>
       </form>
     </MainContainer>

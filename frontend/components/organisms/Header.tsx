@@ -7,11 +7,39 @@ import BurgerMenu from "../molecules/BurgerMenu";
 import { useEffect, useState } from "react";
 import TellDialog from "../molecules/TellDialog";
 import ReserveDialog from "../molecules/ReserveDialog";
+import { useRouter } from "next/router";
+import Cookie from "universal-cookie";
+
+const cookie = new Cookie();
 
 const Header = () => {
   const [tellOpen, setTellOpen] = useState(false);
   const [reserveOpen, setReserveOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
+
+  const logout = () => {
+    cookie.remove("access_token", { path: "/" });
+    router.push("/admin_login");
+  };
+
+  let ButtonComponent;
+  if (typeof cookie.get("access_token") !== "undefined") {
+    ButtonComponent = (
+      <ButtonWrapper>
+        <LogoutButton onClick={logout}>ログアウト</LogoutButton>
+      </ButtonWrapper>
+    );
+  } else {
+    ButtonComponent = (
+      <ButtonWrapper>
+        <TellButton onClick={() => setTellOpen(true)}>電話する</TellButton>
+        <ReserveButton onClick={() => setReserveOpen(true)}>
+          予約する
+        </ReserveButton>
+      </ButtonWrapper>
+    );
+  }
 
   useEffect(() => {
     const menuWrap = document.querySelector(".bm-menu-wrap");
@@ -34,14 +62,7 @@ const Header = () => {
       >
         <Toolbar sx={{ height: "55px" }}>
           <MainWrapper>
-            <ButtonWrapper>
-              <TellButton onClick={() => setTellOpen(true)}>
-                電話する
-              </TellButton>
-              <ReserveButton onClick={() => setReserveOpen(true)}>
-                予約する
-              </ReserveButton>
-            </ButtonWrapper>
+            {ButtonComponent}
             <TitleWrapper>
               <Link href="/">
                 <Title>柄澤整骨院</Title>
@@ -144,6 +165,19 @@ const TellButton = styled.button`
 const ReserveButton = styled.button`
   padding: 10px 14px;
   margin-left: 5px;
+  border: none;
+  border-radius: 10px;
+  background-color: #281914;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Shippori Mincho", serif;
+  &:hover {
+    background-color: #74905d;
+  }
+`;
+
+const LogoutButton = styled.button`
+  padding: 10px 14px;
   border: none;
   border-radius: 10px;
   background-color: #281914;

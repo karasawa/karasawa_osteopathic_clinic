@@ -1,9 +1,20 @@
-type Reservation = {
+type ReservationFormValue = {
   username: string;
   email: string;
   phoneNumber: string;
   date: Date | null;
   time: Date | null;
+};
+
+type Reservation = {
+  id: string;
+  username: string;
+  email: string;
+  phone_number: string;
+  reservation_date: string;
+  start_time: string;
+  finish_time: string;
+  created_at: Date;
 };
 
 export const createReservation = async ({
@@ -12,7 +23,7 @@ export const createReservation = async ({
   phoneNumber,
   date,
   time,
-}: Reservation) => {
+}: ReservationFormValue) => {
   const year = await date?.getFullYear();
   let month = await date?.getMonth();
   month = (await month!) + 1;
@@ -38,4 +49,45 @@ export const createReservation = async ({
   ).then((res) => {
     return res;
   });
+};
+
+export const getAllReservations = async () => {
+  const res = await fetch(
+    new URL(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/`)
+  );
+  const reservations = await res.json();
+  const sortedReservations = reservations.sort(
+    (a: Reservation, b: Reservation) => {
+      if (b.reservation_date < a.reservation_date) {
+        return 1;
+      } else {
+        return -1;
+      }
+    }
+  );
+  return sortedReservations;
+};
+
+export const getAllReservationIds = async () => {
+  const res = await fetch(
+    new URL(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/`)
+  );
+  const reservations = await res.json();
+  return reservations.map((reservation: Reservation) => {
+    return {
+      params: {
+        id: String(reservation.id),
+      },
+    };
+  });
+};
+
+export const getReservation = async (id: string) => {
+  const res = await fetch(
+    new URL(
+      `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-reservation/${id}`
+    )
+  );
+  const reservation = await res.json();
+  return reservation;
 };

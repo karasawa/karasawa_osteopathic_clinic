@@ -26,7 +26,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const paths = await getAllSymptomIds();
   return {
     paths,
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
