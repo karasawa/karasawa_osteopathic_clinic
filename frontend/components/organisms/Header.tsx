@@ -13,14 +13,33 @@ import Cookie from "universal-cookie";
 const cookie = new Cookie();
 
 const Header = () => {
-  const [tellOpen, setTellOpen] = useState(false);
-  const [reserveOpen, setReserveOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [tellOpen, setTellOpen] = useState<boolean>(false);
+  const [reserveOpen, setReserveOpen] = useState<boolean>(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [week, setWeek] = useState<string[]>([]);
+  const [reservationCount, setReservationCount] = useState<number[]>([]);
   const router = useRouter();
 
   const logout = () => {
     cookie.remove("access_token", { path: "/" });
     router.push("/admin_login");
+  };
+
+  const openReserveDialog = async () => {
+    var before = await new Date();
+    for (var i = 0; i < 7; i++) {
+      await week.push(before.getMonth() + 1 + "/" + before.getDate());
+      await before.setDate(before.getDate() + 1);
+    }
+    const thisYear = await new Date().getFullYear();
+    for (var i = 0; i < week.length; i++) {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i]}`
+      );
+      const reservation = await res.json();
+      await reservationCount.push(reservation.length);
+    }
+    await setReserveOpen(true);
   };
 
   let ButtonComponent;
@@ -34,9 +53,7 @@ const Header = () => {
     ButtonComponent = (
       <ButtonWrapper>
         <TellButton onClick={() => setTellOpen(true)}>電話する</TellButton>
-        <ReserveButton onClick={() => setReserveOpen(true)}>
-          予約する
-        </ReserveButton>
+        <ReserveButton onClick={openReserveDialog}>予約する</ReserveButton>
       </ButtonWrapper>
     );
   }
@@ -64,7 +81,13 @@ const Header = () => {
           <MainWrapper>
             {ButtonComponent}
             <TitleWrapper>
-              <Link href="/">
+              <Link
+                href={
+                  typeof cookie.get("access_token") !== "undefined"
+                    ? "/admin_home"
+                    : "/"
+                }
+              >
                 <Title>柄澤整骨院</Title>
               </Link>
             </TitleWrapper>
@@ -111,6 +134,10 @@ const Header = () => {
       <ReserveDialog
         reserveOpen={reserveOpen}
         setReserveOpen={setReserveOpen}
+        week={week}
+        setWeek={setWeek}
+        reservationCount={reservationCount}
+        setReservationCount={setReservationCount}
       />
     </Box>
   );

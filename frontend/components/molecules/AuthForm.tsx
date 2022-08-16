@@ -8,9 +8,9 @@ import { TextField } from "@mui/material";
 const cookie = new Cookie();
 
 const AuthForm = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLogin, setIsLogin] = useState(true);
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [isLogin, setIsLogin] = useState<boolean>(true);
 
   const router = useRouter();
 

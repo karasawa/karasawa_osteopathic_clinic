@@ -12,6 +12,7 @@ type Reservation = {
   email: string;
   phone_number: string;
   reservation_date: string;
+  reservation_time: Date;
   start_time: string;
   finish_time: string;
   created_at: Date;
@@ -29,7 +30,14 @@ export const createReservation = async ({
   month = (await month!) + 1;
   const day = await date?.getDate();
   const hour = await time?.getHours();
-  const minute = await time?.getMinutes();
+  const sub_minute = await time?.getMinutes();
+  let minute = "";
+  if (sub_minute === 0) {
+    minute = "00";
+  } else {
+    minute = String(sub_minute);
+  }
+
   await fetch(
     new URL(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/reservations/`),
     {
@@ -41,6 +49,7 @@ export const createReservation = async ({
         reservation_date: `${year}/${month}/${day}`,
         start_time: `${hour}:${minute}`,
         finish_time: `${hour! + 1}:${minute}`,
+        reservation_time: date,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +67,7 @@ export const getAllReservations = async () => {
   const reservations = await res.json();
   const sortedReservations = reservations.sort(
     (a: Reservation, b: Reservation) => {
-      if (b.reservation_date < a.reservation_date) {
+      if (b.reservation_time < a.reservation_time) {
         return 1;
       } else {
         return -1;

@@ -1,6 +1,7 @@
 from .models import Reservation, Symptom
 from .serializers import UserSerializer, ReservationSerializer, SymptomSerializer
 from rest_framework import generics, viewsets
+from django_filters.rest_framework import DjangoFilterBackend
 
 class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
@@ -10,8 +11,11 @@ class CreateUserView(generics.CreateAPIView):
 class ReservationListView(generics.ListAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['reservation_date']
     permission_classes = []
     authentication_classes = []
+
 
 class ReservationRetrieveView(generics.RetrieveAPIView):
     queryset = Reservation.objects.all()

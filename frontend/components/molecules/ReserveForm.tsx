@@ -9,9 +9,9 @@ import styled from "styled-components";
 import { createReservation } from "../../lib/reservation";
 import ja from "date-fns/locale/ja";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
+import { SnackbarOrigin } from "@mui/material/Snackbar";
 import SnackBar from "../atoms/SnackBar";
 
 export interface State extends SnackbarOrigin {
@@ -37,9 +37,9 @@ const schema = yup.object({
 });
 
 const ReserveForm = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [date, setDate] = useState<Date | null>(new Date());
   const [time, setTime] = useState<Date | null>(
     new Date("2018-01-01T00:00:00.000Z")

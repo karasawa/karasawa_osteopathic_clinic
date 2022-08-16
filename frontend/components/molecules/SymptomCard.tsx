@@ -25,9 +25,9 @@ const SymptomCard: FC<Props> = ({ symptom }) => {
       sx={{
         maxWidth: 345,
         minWidth: 345,
-        height: 286,
+        height: 295,
         color: "#281914",
-        mb: 2,
+        mb: 1,
       }}
     >
       <CardMedia

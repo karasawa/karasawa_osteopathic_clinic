@@ -31,17 +31,18 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 };
 
 const AdminHome: NextPage<Props> = ({ reservations }) => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [reservation_date_start, setReservation_date_start] = useState("");
-  const [reservation_date_end, setReservation_date_end] = useState("");
-  const [phone_number, setPhone_number] = useState("");
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [reservation_date_start, setReservation_date_start] =
+    useState<string>("");
+  const [reservation_date_end, setReservation_date_end] = useState<string>("");
+  const [phone_number, setPhone_number] = useState<string>("");
 
   return (
     <Layout title="admin_home">
       <MainWrapper>
         <Search>
-          <H3Text>検索</H3Text>
+          <H3Text>予約状況の検索</H3Text>
           <TextField
             size="small"
             label="お名前"

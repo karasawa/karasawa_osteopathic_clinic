@@ -9,6 +9,10 @@ import ReserveForm from "./ReserveForm";
 type Props = {
   reserveOpen: boolean;
   setReserveOpen: Dispatch<SetStateAction<boolean>>;
+  week: string[];
+  setWeek: Dispatch<SetStateAction<string[]>>;
+  reservationCount: number[];
+  setReservationCount: Dispatch<SetStateAction<number[]>>;
 };
 
 const style = {
@@ -28,13 +32,26 @@ const style = {
   alignItems: "center",
 };
 
-const ReserveDialog: FC<Props> = ({ reserveOpen, setReserveOpen }) => {
+const ReserveDialog: FC<Props> = ({
+  reserveOpen,
+  setReserveOpen,
+  week,
+  setWeek,
+  reservationCount,
+  setReservationCount,
+}) => {
+  const closeReserveDialog = async () => {
+    await setWeek([]);
+    await setReservationCount([]);
+    await setReserveOpen(false);
+  };
+
   return (
     <div>
-      <Modal open={reserveOpen} onClose={() => setReserveOpen(false)}>
+      <Modal open={reserveOpen} onClose={closeReserveDialog}>
         <Box sx={style}>
           <IconButton
-            onClick={() => setReserveOpen(false)}
+            onClick={closeReserveDialog}
             sx={{ position: "absolute", top: 0, right: 0 }}
           >
             <ClearIcon />
@@ -45,6 +62,45 @@ const ReserveDialog: FC<Props> = ({ reserveOpen, setReserveOpen }) => {
             <PText>平日　9:00～12:30　/　15:00～20:00</PText>
             <PText style={{ marginBottom: "16px" }}>土曜　9:00～14:30</PText>
           </ReceptionWrapper>
+          <CalenderWrapper>
+            <PText>直近一週間の予約状況</PText>
+            <CalenderTable>
+              <tr>
+                {week.map((day) => (
+                  <>
+                    <th
+                      style={{
+                        textAlign: "center",
+                        border: "1px solid gray",
+                        fontWeight: 300,
+                      }}
+                    >
+                      {day}
+                    </th>
+                  </>
+                ))}
+              </tr>
+              <tr>
+                {reservationCount.map((count) => (
+                  <>
+                    <td
+                      style={{ textAlign: "center", border: "1px solid gray" }}
+                    >
+                      {count >= 6 ? "✕" : count >= 4 ? "△" : "〇"}
+                    </td>
+                  </>
+                ))}
+              </tr>
+            </CalenderTable>
+          </CalenderWrapper>
+          <div
+            style={{
+              height: "1px",
+              width: "110%",
+              border: "1px solid gray",
+              marginBottom: "15px",
+            }}
+          ></div>
           <ReserveForm />
         </Box>
       </Modal>
@@ -68,4 +124,16 @@ const ReceptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
+`;
+
+const CalenderWrapper = styled.div`
+  width: 100%;
+  height: 90px;
+  disyplay: flex;
+  flex-direction: column;
+`;
+
+const CalenderTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
 `;

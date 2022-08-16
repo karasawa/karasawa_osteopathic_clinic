@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 
 const Slider = () => {
   const router = useRouter();
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState<number>(1);
 
   const imageArr = ["/shunpudo.jpg", "/honjo.jpg", "/pug.jpg"];
 
