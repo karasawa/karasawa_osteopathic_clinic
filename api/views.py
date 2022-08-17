@@ -12,7 +12,7 @@ class ReservationListView(generics.ListAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['reservation_date']
+    filterset_fields = ['reservation_date', 'start_time']
     permission_classes = []
     authentication_classes = []
 

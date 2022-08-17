@@ -17,7 +17,13 @@ const Header = () => {
   const [reserveOpen, setReserveOpen] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [week, setWeek] = useState<string[]>([]);
-  const [reservationCount, setReservationCount] = useState<number[]>([]);
+  const [reservationCount1, setReservationCount1] = useState<number[]>([]);
+  const [reservationCount2, setReservationCount2] = useState<number[]>([]);
+  const [reservationCount3, setReservationCount3] = useState<number[]>([]);
+  const [reservationCount4, setReservationCount4] = useState<number[]>([]);
+  const [reservationCount5, setReservationCount5] = useState<number[]>([]);
+  const [reservationCount6, setReservationCount6] = useState<number[]>([]);
+  const [reservationCount7, setReservationCount7] = useState<number[]>([]);
   const router = useRouter();
 
   const logout = () => {
@@ -34,10 +40,52 @@ const Header = () => {
     const thisYear = await new Date().getFullYear();
     for (var i = 0; i < week.length; i++) {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i]}`
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i]}&start_time=9:00`
       );
       const reservation = await res.json();
-      await reservationCount.push(reservation.length);
+      await reservationCount1.push(reservation.length);
+    }
+    for (var i = 0; i < week.length; i++) {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i]}&start_time=10:00`
+      );
+      const reservation = await res.json();
+      await reservationCount2.push(reservation.length);
+    }
+    for (var i = 0; i < week.length; i++) {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i]}&start_time=11:00`
+      );
+      const reservation = await res.json();
+      await reservationCount3.push(reservation.length);
+    }
+    for (var i = 0; i < week.length; i++) {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i]}&start_time=12:00`
+      );
+      const reservation = await res.json();
+      await reservationCount4.push(reservation.length);
+    }
+    for (var i = 0; i < week.length; i++) {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i]}&start_time=15:00`
+      );
+      const reservation = await res.json();
+      await reservationCount5.push(reservation.length);
+    }
+    for (var i = 0; i < week.length; i++) {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i]}&start_time=16:00`
+      );
+      const reservation = await res.json();
+      await reservationCount6.push(reservation.length);
+    }
+    for (var i = 0; i < week.length; i++) {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i]}&start_time=17:00`
+      );
+      const reservation = await res.json();
+      await reservationCount7.push(reservation.length);
     }
     await setReserveOpen(true);
   };
@@ -136,8 +184,20 @@ const Header = () => {
         setReserveOpen={setReserveOpen}
         week={week}
         setWeek={setWeek}
-        reservationCount={reservationCount}
-        setReservationCount={setReservationCount}
+        reservationCount1={reservationCount1}
+        setReservationCount1={setReservationCount1}
+        reservationCount2={reservationCount2}
+        setReservationCount2={setReservationCount2}
+        reservationCount3={reservationCount3}
+        setReservationCount3={setReservationCount3}
+        reservationCount4={reservationCount4}
+        setReservationCount4={setReservationCount4}
+        reservationCount5={reservationCount5}
+        setReservationCount5={setReservationCount5}
+        reservationCount6={reservationCount6}
+        setReservationCount6={setReservationCount6}
+        reservationCount7={reservationCount7}
+        setReservationCount7={setReservationCount7}
       />
     </Box>
   );

@@ -1,18 +1,31 @@
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { FC, Dispatch, SetStateAction } from "react";
+import { FC, Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 import ClearIcon from "@mui/icons-material/Clear";
 import IconButton from "@mui/material/IconButton";
 import ReserveForm from "./ReserveForm";
+import { SetMealOutlined } from "@mui/icons-material";
 
 type Props = {
   reserveOpen: boolean;
   setReserveOpen: Dispatch<SetStateAction<boolean>>;
   week: string[];
   setWeek: Dispatch<SetStateAction<string[]>>;
-  reservationCount: number[];
-  setReservationCount: Dispatch<SetStateAction<number[]>>;
+  reservationCount1: number[];
+  setReservationCount1: Dispatch<SetStateAction<number[]>>;
+  reservationCount2: number[];
+  setReservationCount2: Dispatch<SetStateAction<number[]>>;
+  reservationCount3: number[];
+  setReservationCount3: Dispatch<SetStateAction<number[]>>;
+  reservationCount4: number[];
+  setReservationCount4: Dispatch<SetStateAction<number[]>>;
+  reservationCount5: number[];
+  setReservationCount5: Dispatch<SetStateAction<number[]>>;
+  reservationCount6: number[];
+  setReservationCount6: Dispatch<SetStateAction<number[]>>;
+  reservationCount7: number[];
+  setReservationCount7: Dispatch<SetStateAction<number[]>>;
 };
 
 const style = {
@@ -37,12 +50,31 @@ const ReserveDialog: FC<Props> = ({
   setReserveOpen,
   week,
   setWeek,
-  reservationCount,
-  setReservationCount,
+  reservationCount1,
+  setReservationCount1,
+  reservationCount2,
+  setReservationCount2,
+  reservationCount3,
+  setReservationCount3,
+  reservationCount4,
+  setReservationCount4,
+  reservationCount5,
+  setReservationCount5,
+  reservationCount6,
+  setReservationCount6,
+  reservationCount7,
+  setReservationCount7,
 }) => {
+  const [mode, setMode] = useState<boolean>(true);
   const closeReserveDialog = async () => {
     await setWeek([]);
-    await setReservationCount([]);
+    await setReservationCount1([]);
+    await setReservationCount2([]);
+    await setReservationCount3([]);
+    await setReservationCount4([]);
+    await setReservationCount5([]);
+    await setReservationCount6([]);
+    await setReservationCount7([]);
     await setReserveOpen(false);
   };
 
@@ -56,52 +88,157 @@ const ReserveDialog: FC<Props> = ({
           >
             <ClearIcon />
           </IconButton>
-          <H3Text>ご予約情報を入力してください。</H3Text>
-          <ReceptionWrapper>
-            <PText>受付時間</PText>
-            <PText>平日　9:00～12:30　/　15:00～20:00</PText>
-            <PText style={{ marginBottom: "16px" }}>土曜　9:00～14:30</PText>
-          </ReceptionWrapper>
-          <CalenderWrapper>
-            <PText>直近一週間の予約状況</PText>
-            <CalenderTable>
-              <tr>
-                {week.map((day) => (
-                  <>
-                    <th
-                      style={{
-                        textAlign: "center",
-                        border: "1px solid gray",
-                        fontWeight: 300,
-                      }}
-                    >
-                      {day}
-                    </th>
-                  </>
-                ))}
-              </tr>
-              <tr>
-                {reservationCount.map((count) => (
-                  <>
-                    <td
-                      style={{ textAlign: "center", border: "1px solid gray" }}
-                    >
-                      {count >= 6 ? "✕" : count >= 4 ? "△" : "〇"}
-                    </td>
-                  </>
-                ))}
-              </tr>
-            </CalenderTable>
-          </CalenderWrapper>
-          <div
-            style={{
-              height: "1px",
-              width: "110%",
-              border: "1px solid gray",
-              marginBottom: "15px",
-            }}
-          ></div>
-          <ReserveForm />
+          {mode ? (
+            <>
+              <H3Text>ご予約情報を入力してください</H3Text>
+              <ReceptionWrapper>
+                <PText>受付時間</PText>
+                <PText>平日　9:00～13:00　/　15:00～18:00</PText>
+                <PText style={{ marginBottom: "16px" }}>
+                  土曜　9:00～13:00
+                </PText>
+              </ReceptionWrapper>
+              <ButtonWrapper>
+                <Button onClick={() => setMode(false)}>
+                  直近一週間の予約状況を見る
+                </Button>
+              </ButtonWrapper>
+              <ReserveForm />
+            </>
+          ) : (
+            <>
+              <H3Text>直近一週間の予約状況</H3Text>
+              <ReceptionWrapper>
+                <PText>受付時間</PText>
+                <PText>平日　9:00～13:00　/　15:00～18:00</PText>
+                <PText style={{ marginBottom: "16px" }}>
+                  土曜　9:00～13:00
+                </PText>
+              </ReceptionWrapper>
+              <ButtonWrapper>
+                <Button onClick={() => setMode(true)}>
+                  予約フォームへ戻る
+                </Button>
+              </ButtonWrapper>
+              <CalenderWrapper>
+                <CalenderTable>
+                  <tr>
+                    {week.map((day) => (
+                      <>
+                        <th
+                          style={{
+                            textAlign: "center",
+                            border: "1px solid gray",
+                            fontWeight: 300,
+                          }}
+                        >
+                          {day}
+                        </th>
+                      </>
+                    ))}
+                  </tr>
+                  <tr>
+                    {reservationCount1.map((count) => (
+                      <>
+                        <td
+                          style={{
+                            textAlign: "center",
+                            border: "1px solid gray",
+                          }}
+                        >
+                          {count >= 4 ? "✕" : count >= 2 ? "△" : "〇"}
+                        </td>
+                      </>
+                    ))}
+                  </tr>
+                  <tr>
+                    {reservationCount2.map((count) => (
+                      <>
+                        <td
+                          style={{
+                            textAlign: "center",
+                            border: "1px solid gray",
+                          }}
+                        >
+                          {count >= 4 ? "✕" : count >= 2 ? "△" : "〇"}
+                        </td>
+                      </>
+                    ))}
+                  </tr>
+                  <tr>
+                    {reservationCount3.map((count) => (
+                      <>
+                        <td
+                          style={{
+                            textAlign: "center",
+                            border: "1px solid gray",
+                          }}
+                        >
+                          {count >= 4 ? "✕" : count >= 2 ? "△" : "〇"}
+                        </td>
+                      </>
+                    ))}
+                  </tr>
+                  <tr>
+                    {reservationCount4.map((count) => (
+                      <>
+                        <td
+                          style={{
+                            textAlign: "center",
+                            border: "1px solid gray",
+                          }}
+                        >
+                          {count >= 4 ? "✕" : count >= 2 ? "△" : "〇"}
+                        </td>
+                      </>
+                    ))}
+                  </tr>
+                  <tr>
+                    {reservationCount5.map((count) => (
+                      <>
+                        <td
+                          style={{
+                            textAlign: "center",
+                            border: "1px solid gray",
+                          }}
+                        >
+                          {count >= 4 ? "✕" : count >= 2 ? "△" : "〇"}
+                        </td>
+                      </>
+                    ))}
+                  </tr>
+                  <tr>
+                    {reservationCount6.map((count) => (
+                      <>
+                        <td
+                          style={{
+                            textAlign: "center",
+                            border: "1px solid gray",
+                          }}
+                        >
+                          {count >= 4 ? "✕" : count >= 2 ? "△" : "〇"}
+                        </td>
+                      </>
+                    ))}
+                  </tr>
+                  <tr>
+                    {reservationCount7.map((count) => (
+                      <>
+                        <td
+                          style={{
+                            textAlign: "center",
+                            border: "1px solid gray",
+                          }}
+                        >
+                          {count >= 4 ? "✕" : count >= 2 ? "△" : "〇"}
+                        </td>
+                      </>
+                    ))}
+                  </tr>
+                </CalenderTable>
+              </CalenderWrapper>
+            </>
+          )}
         </Box>
       </Modal>
     </div>
@@ -128,7 +265,7 @@ const ReceptionWrapper = styled.div`
 
 const CalenderWrapper = styled.div`
   width: 100%;
-  height: 90px;
+  // height: 90px;
   disyplay: flex;
   flex-direction: column;
 `;
@@ -136,4 +273,20 @@ const CalenderWrapper = styled.div`
 const CalenderTable = styled.table`
   width: 100%;
   border-collapse: collapse;
+`;
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  text-align: right;
+`;
+
+const Button = styled.h5`
+  margin: 0 0 2px 0;
+  border: none;
+  color: #281914;
+  cursor: pointer;
+  font-family: "Shippori Mincho", serif;
+  &:hover {
+    color: #74905d;
+  }
 `;
