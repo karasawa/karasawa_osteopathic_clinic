@@ -2,8 +2,8 @@ type ReservationFormValue = {
   username: string;
   email: string;
   phoneNumber: string;
-  date: Date | null;
-  time: Date | null;
+  date: string;
+  time: string;
 };
 
 type Reservation = {
@@ -15,7 +15,7 @@ type Reservation = {
   reservation_time: Date;
   start_time: string;
   finish_time: string;
-  created_at: Date;
+  created_at: string;
 };
 
 export const createReservation = async ({
@@ -25,18 +25,7 @@ export const createReservation = async ({
   date,
   time,
 }: ReservationFormValue) => {
-  const year = await date?.getFullYear();
-  let month = await date?.getMonth();
-  month = (await month!) + 1;
-  const day = await date?.getDate();
-  const hour = await time?.getHours();
-  const sub_minute = await time?.getMinutes();
-  let minute = "";
-  if (sub_minute === 0) {
-    minute = "00";
-  } else {
-    minute = String(sub_minute);
-  }
+  const thisYear = await new Date().getFullYear();
 
   await fetch(
     new URL(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/reservations/`),
@@ -46,10 +35,10 @@ export const createReservation = async ({
         username: username,
         email: email,
         phone_number: phoneNumber,
-        reservation_date: `${year}/${month}/${day}`,
-        start_time: `${hour}:${minute}`,
-        finish_time: `${hour! + 1}:${minute}`,
-        reservation_time: date,
+        reservation_date: `${thisYear}/${date}`,
+        start_time: time,
+        finish_time: String(Number(time) + 1),
+        reservation_time: `${thisYear}/${date} ${time}`,
       }),
       headers: {
         "Content-Type": "application/json",

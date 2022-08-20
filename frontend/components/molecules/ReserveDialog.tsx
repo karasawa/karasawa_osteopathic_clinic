@@ -5,13 +5,13 @@ import styled from "styled-components";
 import ClearIcon from "@mui/icons-material/Clear";
 import IconButton from "@mui/material/IconButton";
 import ReserveForm from "./ReserveForm";
-import { SetMealOutlined } from "@mui/icons-material";
+import type { Week } from "../organisms/Header";
 
 type Props = {
   reserveOpen: boolean;
   setReserveOpen: Dispatch<SetStateAction<boolean>>;
-  week: string[];
-  setWeek: Dispatch<SetStateAction<string[]>>;
+  week: Week[];
+  setWeek: Dispatch<SetStateAction<Week[]>>;
   reservationCount1: number[];
   setReservationCount1: Dispatch<SetStateAction<number[]>>;
   reservationCount2: number[];
@@ -75,6 +75,7 @@ const ReserveDialog: FC<Props> = ({
     await setReservationCount5([]);
     await setReservationCount6([]);
     await setReservationCount7([]);
+    await setMode(true);
     await setReserveOpen(false);
   };
 
@@ -93,24 +94,22 @@ const ReserveDialog: FC<Props> = ({
               <H3Text>ご予約情報を入力してください</H3Text>
               <ReceptionWrapper>
                 <PText>受付時間</PText>
-                <PText>平日　9:00～13:00　/　15:00～18:00</PText>
+                <PText>平日　9:00～13:00　/　15:00～19:00</PText>
                 <PText style={{ marginBottom: "16px" }}>
                   土曜　9:00～13:00
                 </PText>
               </ReceptionWrapper>
               <ButtonWrapper>
-                <Button onClick={() => setMode(false)}>
-                  直近一週間の予約状況を見る
-                </Button>
+                <Button onClick={() => setMode(false)}>予約状況を見る</Button>
               </ButtonWrapper>
-              <ReserveForm />
+              <ReserveForm week={week} />
             </>
           ) : (
             <>
               <H3Text>直近一週間の予約状況</H3Text>
               <ReceptionWrapper>
                 <PText>受付時間</PText>
-                <PText>平日　9:00～13:00　/　15:00～18:00</PText>
+                <PText>平日　9:00～13:00　/　15:00～19:00</PText>
                 <PText style={{ marginBottom: "16px" }}>
                   土曜　9:00～13:00
                 </PText>
@@ -123,21 +122,50 @@ const ReserveDialog: FC<Props> = ({
               <CalenderWrapper>
                 <CalenderTable>
                   <tr>
-                    {week.map((day) => (
+                    <th
+                      style={{
+                        textAlign: "center",
+                        border: "1px solid gray",
+                        fontWeight: 300,
+                      }}
+                    ></th>
+                    {week.map((oneDay) => (
                       <>
                         <th
-                          style={{
-                            textAlign: "center",
-                            border: "1px solid gray",
-                            fontWeight: 300,
-                          }}
+                          style={
+                            oneDay.day === "日"
+                              ? {
+                                  border: "1px solid gray",
+                                  fontWeight: 300,
+                                  color: "red",
+                                }
+                              : oneDay.day === "土"
+                              ? {
+                                  border: "1px solid gray",
+                                  fontWeight: 300,
+                                  color: "blue",
+                                }
+                              : {
+                                  border: "1px solid gray",
+                                  fontWeight: 300,
+                                }
+                          }
+                          key={oneDay.date}
                         >
-                          {day}
+                          {oneDay.date}（{oneDay.day}）
                         </th>
                       </>
                     ))}
                   </tr>
                   <tr>
+                    <td
+                      style={{
+                        textAlign: "center",
+                        border: "1px solid gray",
+                      }}
+                    >
+                      9:00~
+                    </td>
                     {reservationCount1.map((count) => (
                       <>
                         <td
@@ -145,13 +173,28 @@ const ReserveDialog: FC<Props> = ({
                             textAlign: "center",
                             border: "1px solid gray",
                           }}
+                          key={count}
                         >
-                          {count >= 4 ? "✕" : count >= 2 ? "△" : "〇"}
+                          {count >= 4
+                            ? "✕"
+                            : count >= 2
+                            ? "△"
+                            : count >= 0
+                            ? "〇"
+                            : "-"}
                         </td>
                       </>
                     ))}
                   </tr>
                   <tr>
+                    <td
+                      style={{
+                        textAlign: "center",
+                        border: "1px solid gray",
+                      }}
+                    >
+                      10:00~
+                    </td>
                     {reservationCount2.map((count) => (
                       <>
                         <td
@@ -159,13 +202,28 @@ const ReserveDialog: FC<Props> = ({
                             textAlign: "center",
                             border: "1px solid gray",
                           }}
+                          key={count}
                         >
-                          {count >= 4 ? "✕" : count >= 2 ? "△" : "〇"}
+                          {count >= 4
+                            ? "✕"
+                            : count >= 2
+                            ? "△"
+                            : count >= 0
+                            ? "〇"
+                            : "-"}
                         </td>
                       </>
                     ))}
                   </tr>
                   <tr>
+                    <td
+                      style={{
+                        textAlign: "center",
+                        border: "1px solid gray",
+                      }}
+                    >
+                      11:00~
+                    </td>
                     {reservationCount3.map((count) => (
                       <>
                         <td
@@ -173,13 +231,28 @@ const ReserveDialog: FC<Props> = ({
                             textAlign: "center",
                             border: "1px solid gray",
                           }}
+                          key={count}
                         >
-                          {count >= 4 ? "✕" : count >= 2 ? "△" : "〇"}
+                          {count >= 4
+                            ? "✕"
+                            : count >= 2
+                            ? "△"
+                            : count >= 0
+                            ? "〇"
+                            : "-"}
                         </td>
                       </>
                     ))}
                   </tr>
                   <tr>
+                    <td
+                      style={{
+                        textAlign: "center",
+                        border: "1px solid gray",
+                      }}
+                    >
+                      15:00~
+                    </td>
                     {reservationCount4.map((count) => (
                       <>
                         <td
@@ -187,13 +260,28 @@ const ReserveDialog: FC<Props> = ({
                             textAlign: "center",
                             border: "1px solid gray",
                           }}
+                          key={count}
                         >
-                          {count >= 4 ? "✕" : count >= 2 ? "△" : "〇"}
+                          {count >= 4
+                            ? "✕"
+                            : count >= 2
+                            ? "△"
+                            : count >= 0
+                            ? "〇"
+                            : "-"}
                         </td>
                       </>
                     ))}
                   </tr>
                   <tr>
+                    <td
+                      style={{
+                        textAlign: "center",
+                        border: "1px solid gray",
+                      }}
+                    >
+                      16:00~
+                    </td>
                     {reservationCount5.map((count) => (
                       <>
                         <td
@@ -201,13 +289,28 @@ const ReserveDialog: FC<Props> = ({
                             textAlign: "center",
                             border: "1px solid gray",
                           }}
+                          key={count}
                         >
-                          {count >= 4 ? "✕" : count >= 2 ? "△" : "〇"}
+                          {count >= 4
+                            ? "✕"
+                            : count >= 2
+                            ? "△"
+                            : count >= 0
+                            ? "〇"
+                            : "-"}
                         </td>
                       </>
                     ))}
                   </tr>
                   <tr>
+                    <td
+                      style={{
+                        textAlign: "center",
+                        border: "1px solid gray",
+                      }}
+                    >
+                      17:00~
+                    </td>
                     {reservationCount6.map((count) => (
                       <>
                         <td
@@ -215,13 +318,28 @@ const ReserveDialog: FC<Props> = ({
                             textAlign: "center",
                             border: "1px solid gray",
                           }}
+                          key={count}
                         >
-                          {count >= 4 ? "✕" : count >= 2 ? "△" : "〇"}
+                          {count >= 4
+                            ? "✕"
+                            : count >= 2
+                            ? "△"
+                            : count >= 0
+                            ? "〇"
+                            : "-"}
                         </td>
                       </>
                     ))}
                   </tr>
                   <tr>
+                    <td
+                      style={{
+                        textAlign: "center",
+                        border: "1px solid gray",
+                      }}
+                    >
+                      18:00~
+                    </td>
                     {reservationCount7.map((count) => (
                       <>
                         <td
@@ -229,8 +347,15 @@ const ReserveDialog: FC<Props> = ({
                             textAlign: "center",
                             border: "1px solid gray",
                           }}
+                          key={count}
                         >
-                          {count >= 4 ? "✕" : count >= 2 ? "△" : "〇"}
+                          {count >= 4
+                            ? "✕"
+                            : count >= 2
+                            ? "△"
+                            : count >= 0
+                            ? "〇"
+                            : "-"}
                         </td>
                       </>
                     ))}

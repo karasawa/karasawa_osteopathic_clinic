@@ -7,7 +7,7 @@ const Reservation: NextPage = () => {
   return (
     <Layout title="reservation">
       <MainWrapper>
-        <ReserveForm />
+        <ReserveForm week={[]} />
       </MainWrapper>
     </Layout>
   );
