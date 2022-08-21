@@ -1,7 +1,7 @@
 import type { NextPage, GetServerSideProps } from "next";
 import Layout from "../components/Layout";
 import styled from "styled-components";
-import { getAllReservations } from "../lib/reservation";
+import { getAllReservations, searchReservation } from "../lib/reservation";
 import ReservationCard from "../components/molecules/ReservationCard";
 import { TextField } from "@mui/material";
 import { useState } from "react";
@@ -21,6 +21,19 @@ type Props = {
   ];
 };
 
+export type ReservationType = {
+  reservation: {
+    id: string;
+    username: string;
+    email: string;
+    phone_number: string;
+    reservation_date: string;
+    start_time: string;
+    finish_time: string;
+    created_at: Date;
+  };
+};
+
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const reservations = await getAllReservations();
   return {
@@ -33,10 +46,41 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 const AdminHome: NextPage<Props> = ({ reservations }) => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [reservation_date_start, setReservation_date_start] =
-    useState<string>("");
-  const [reservation_date_end, setReservation_date_end] = useState<string>("");
+  const [reservation_date, setReservation_date] = useState<string>("");
   const [phone_number, setPhone_number] = useState<string>("");
+  const [searchFlag, setSearhFlag] = useState<boolean>(false);
+  const [searchResult, setSearchResult] = useState<
+    {
+      id: string;
+      username: string;
+      email: string;
+      phone_number: string;
+      reservation_date: string;
+      start_time: string;
+      finish_time: string;
+      created_at: Date;
+    }[]
+  >([]);
+
+  const search = async () => {
+    if (
+      username === "" &&
+      email === "" &&
+      reservation_date === "" &&
+      phone_number === ""
+    ) {
+      await setSearhFlag(false);
+    } else {
+      const reservations = await searchReservation(
+        username,
+        email,
+        reservation_date,
+        phone_number
+      );
+      await setSearhFlag(true);
+      await setSearchResult(reservations);
+    }
+  };
 
   return (
     <Layout title="admin_home">
@@ -58,23 +102,10 @@ const AdminHome: NextPage<Props> = ({ reservations }) => {
           />
           <TextField
             size="small"
-            label="予約日（自）"
+            label="予約日"
             type="text"
-            value={reservation_date_start}
-            onChange={(e) => setReservation_date_start(e.target.value)}
-            sx={{
-              marginTop: "30px",
-              width: 400,
-              bgcolor: "#fff",
-              borderRadius: "5px",
-            }}
-          />
-          <TextField
-            size="small"
-            label="予約日（至）"
-            type="text"
-            value={reservation_date_end}
-            onChange={(e) => setReservation_date_end(e.target.value)}
+            value={reservation_date}
+            onChange={(e) => setReservation_date(e.target.value)}
             sx={{
               marginTop: "30px",
               width: 400,
@@ -108,6 +139,7 @@ const AdminHome: NextPage<Props> = ({ reservations }) => {
               borderRadius: "5px",
             }}
           />
+          <SearchButton onClick={search}>検索</SearchButton>
         </Search>
         <Reservation>
           <ReservationHeader>
@@ -116,9 +148,19 @@ const AdminHome: NextPage<Props> = ({ reservations }) => {
             <Username>お名前</Username>
             <PhoneNumber>電話番号</PhoneNumber>
           </ReservationHeader>
-          {reservations.map((reservation) => (
-            <ReservationCard key={reservation.id} reservation={reservation} />
-          ))}
+          {searchFlag === false
+            ? reservations.map((reservation) => (
+                <ReservationCard
+                  key={reservation.id}
+                  reservation={reservation}
+                />
+              ))
+            : searchResult.map((reservation) => (
+                <ReservationCard
+                  key={reservation.id}
+                  reservation={reservation}
+                />
+              ))}
         </Reservation>
       </MainWrapper>
     </Layout>
@@ -200,4 +242,19 @@ const Username = styled.div`
 const PhoneNumber = styled.div`
   height: 50px;
   flex: 0.2;
+`;
+
+const SearchButton = styled.button`
+  padding: 10px 14px;
+  width: 400px;
+  margin-top: 30px;
+  border: none;
+  border-radius: 10px;
+  background-color: #281914;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Shippori Mincho", serif;
+  &:hover {
+    background-color: #74905d;
+  }
 `;

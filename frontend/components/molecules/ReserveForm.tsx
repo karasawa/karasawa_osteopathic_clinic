@@ -14,8 +14,9 @@ import SnackBar from "../atoms/SnackBar";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import type { Week } from "../organisms/Header";
+import FormHelperText from "@mui/material/FormHelperText";
 
 export interface State extends SnackbarOrigin {
   open: boolean;
@@ -44,7 +45,7 @@ const schema = yup.object({
     .required("電話番号を入力してください")
     .matches(/\d{2,4}-\d{3,4}-\d{3,4}/, "ハイブンを含めて入力してください"),
   date: yup.string().required("予約日を選択してください"),
-  time: yup.string().required("やよく時間を選択してください"),
+  time: yup.string().required("予約時間を選択してください"),
 });
 
 const ReserveForm: FC<Props> = ({ week }) => {
@@ -122,31 +123,34 @@ const ReserveForm: FC<Props> = ({ week }) => {
               <Select
                 {...register("date")}
                 error={"date" in errors}
-                // helperText={errors.date?.message}
                 value={date}
                 label="予約日"
-                onChange={(e: SelectChangeEvent) =>
-                  setDate(e.target.value as string)
-                }
+                onChange={(e) => setDate(e.target.value)}
               >
-                {week.map((oneDay) => (
-                  <MenuItem key={oneDay.date} value={oneDay.date}>
-                    {oneDay.date}（{oneDay.day}）
-                  </MenuItem>
-                ))}
+                {week.map((oneDay) => {
+                  if (oneDay.day === "日") {
+                    return <></>;
+                  } else {
+                    return (
+                      <MenuItem key={oneDay.date} value={oneDay.date}>
+                        {oneDay.date}（{oneDay.day}）
+                      </MenuItem>
+                    );
+                  }
+                })}
               </Select>
+              <FormHelperText sx={{ color: "#D95555" }}>
+                {errors.date?.message}
+              </FormHelperText>
             </FormControl>
             <FormControl fullWidth size="small">
               <InputLabel>予約時間</InputLabel>
               <Select
                 {...register("time")}
                 error={"time" in errors}
-                // helperText={errors.time?.message}
                 value={time}
                 label="予約時間"
-                onChange={(e: SelectChangeEvent) =>
-                  setTime(e.target.value as string)
-                }
+                onChange={(e) => setTime(e.target.value)}
               >
                 <MenuItem value={"9:00"}>9:00</MenuItem>
                 <MenuItem value={"10:00"}>10:00</MenuItem>
@@ -156,6 +160,9 @@ const ReserveForm: FC<Props> = ({ week }) => {
                 <MenuItem value={"17:00"}>17:00</MenuItem>
                 <MenuItem value={"18:00"}>18:00</MenuItem>
               </Select>
+              <FormHelperText sx={{ color: "#D95555" }}>
+                {errors.time?.message}
+              </FormHelperText>
             </FormControl>
             <ReserveButton type="submit">予約する</ReserveButton>
           </Stack>

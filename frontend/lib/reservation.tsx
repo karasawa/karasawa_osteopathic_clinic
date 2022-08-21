@@ -6,7 +6,7 @@ type ReservationFormValue = {
   time: string;
 };
 
-type Reservation = {
+export type Reservation = {
   id: string;
   username: string;
   email: string;
@@ -26,6 +26,9 @@ export const createReservation = async ({
   time,
 }: ReservationFormValue) => {
   const thisYear = await new Date().getFullYear();
+  const index = await time.indexOf(":");
+  let finishTime = await time.slice(0, index);
+  finishTime = (await String(Number(finishTime) + 1)) + ":00";
 
   await fetch(
     new URL(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/reservations/`),
@@ -37,7 +40,7 @@ export const createReservation = async ({
         phone_number: phoneNumber,
         reservation_date: `${thisYear}/${date}`,
         start_time: time,
-        finish_time: String(Number(time) + 1),
+        finish_time: finishTime,
         reservation_time: `${thisYear}/${date} ${time}`,
       }),
       headers: {
@@ -88,4 +91,36 @@ export const getReservation = async (id: string) => {
   );
   const reservation = await res.json();
   return reservation;
+};
+
+export const searchReservation = async (
+  username: string,
+  email: string,
+  reservation_date: string,
+  phone_number: string
+) => {
+  const res = await fetch(
+    new URL(
+      `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?username=${username}&email=${email}&reservation_date=${reservation_date}&phone_number=${phone_number}`
+    )
+  );
+  const reservations = await res.json();
+  return reservations;
+};
+
+export const deleteReservation = async (id: string) => {
+  await fetch(
+    new URL(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/reservations/${id}`),
+    {
+      method: "DELETE",
+      body: JSON.stringify({
+        id: id,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  ).then((res) => {
+    return res;
+  });
 };

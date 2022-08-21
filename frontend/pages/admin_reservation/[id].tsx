@@ -1,9 +1,14 @@
-import { getAllReservationIds, getReservation } from "../../lib/reservation";
+import {
+  deleteReservation,
+  getAllReservationIds,
+  getReservation,
+} from "../../lib/reservation";
 import type { NextPage, GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "node:querystring";
 import Layout from "../../components/Layout";
 import styled from "styled-components";
 import BuckButton from "../../components/atoms/BuckButton";
+import { useRouter } from "next/router";
 
 interface Params extends ParsedUrlQuery {
   id: string;
@@ -43,6 +48,14 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
 };
 
 const DetailReservation: NextPage<Props> = ({ reservation }) => {
+  const router = useRouter();
+
+  const remove = async () => {
+    const res = await deleteReservation(reservation.id);
+    router.push("/admin_home");
+    console.log(res);
+  };
+
   return (
     <Layout title={reservation.id}>
       <MainWrapper>
@@ -70,6 +83,7 @@ const DetailReservation: NextPage<Props> = ({ reservation }) => {
             <Content1>電話番号：</Content1>
             <Content2>{reservation.phone_number}</Content2>
           </Content>
+          <DeleteButton onClick={remove}>削除する</DeleteButton>
         </SubWrapper>
       </MainWrapper>
     </Layout>
@@ -118,11 +132,17 @@ const Content2 = styled.div`
   text-align: center;
 `;
 
-const TextH3 = styled.h3`
-  margin: 0;
-`;
-
-const TextP = styled.p`
-  margin: 0;
-  padding: 20px;
+const DeleteButton = styled.button`
+  padding: 10px 14px;
+  margin: 0 0 0 auto;
+  width: 50%;
+  border: none;
+  border-radius: 10px;
+  background-color: #281914;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Shippori Mincho", serif;
+  &:hover {
+    background-color: #74905d;
+  }
 `;
