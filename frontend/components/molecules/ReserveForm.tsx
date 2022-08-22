@@ -85,6 +85,8 @@ const ReserveForm: FC<Props> = ({ week }) => {
     setState({ ...state, open: true });
   };
 
+  console.log(date);
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
       <Fragment>
@@ -132,7 +134,10 @@ const ReserveForm: FC<Props> = ({ week }) => {
                     return <></>;
                   } else {
                     return (
-                      <MenuItem key={oneDay.date} value={oneDay.date}>
+                      <MenuItem
+                        key={oneDay.date}
+                        value={`${oneDay.date}（${oneDay.day}）`}
+                      >
                         {oneDay.date}（{oneDay.day}）
                       </MenuItem>
                     );
@@ -145,21 +150,35 @@ const ReserveForm: FC<Props> = ({ week }) => {
             </FormControl>
             <FormControl fullWidth size="small">
               <InputLabel>予約時間</InputLabel>
-              <Select
-                {...register("time")}
-                error={"time" in errors}
-                value={time}
-                label="予約時間"
-                onChange={(e) => setTime(e.target.value)}
-              >
-                <MenuItem value={"9:00"}>9:00</MenuItem>
-                <MenuItem value={"10:00"}>10:00</MenuItem>
-                <MenuItem value={"11:00"}>11:00</MenuItem>
-                <MenuItem value={"15:00"}>15:00</MenuItem>
-                <MenuItem value={"16:00"}>16:00</MenuItem>
-                <MenuItem value={"17:00"}>17:00</MenuItem>
-                <MenuItem value={"18:00"}>18:00</MenuItem>
-              </Select>
+              {date.indexOf("土") !== -1 ? (
+                <Select
+                  {...register("time")}
+                  error={"time" in errors}
+                  value={time}
+                  label="予約時間"
+                  onChange={(e) => setTime(e.target.value)}
+                >
+                  <MenuItem value={"9:00"}>9:00</MenuItem>
+                  <MenuItem value={"10:00"}>10:00</MenuItem>
+                  <MenuItem value={"11:00"}>11:00</MenuItem>
+                </Select>
+              ) : (
+                <Select
+                  {...register("time")}
+                  error={"time" in errors}
+                  value={time}
+                  label="予約時間"
+                  onChange={(e) => setTime(e.target.value)}
+                >
+                  <MenuItem value={"9:00"}>9:00</MenuItem>
+                  <MenuItem value={"10:00"}>10:00</MenuItem>
+                  <MenuItem value={"11:00"}>11:00</MenuItem>
+                  <MenuItem value={"15:00"}>15:00</MenuItem>
+                  <MenuItem value={"16:00"}>16:00</MenuItem>
+                  <MenuItem value={"17:00"}>17:00</MenuItem>
+                  <MenuItem value={"18:00"}>18:00</MenuItem>
+                </Select>
+              )}
               <FormHelperText sx={{ color: "#D95555" }}>
                 {errors.time?.message}
               </FormHelperText>

@@ -26,9 +26,26 @@ export const createReservation = async ({
   time,
 }: ReservationFormValue) => {
   const thisYear = await new Date().getFullYear();
-  const index = await time.indexOf(":");
-  let finishTime = await time.slice(0, index);
-  finishTime = (await String(Number(finishTime) + 1)) + ":00";
+  const timeIndex = await time.indexOf(":");
+  let finishTimeNum = await time.slice(0, timeIndex);
+  const finishTime = (await String(Number(finishTimeNum) + 1)) + ":00";
+  const dateIndex = await date.indexOf("（");
+  const reservationDate = await date.slice(0, dateIndex);
+  const reservationDateIndex = await date.indexOf("/");
+  let reservationDateNumM = await reservationDate.slice(
+    0,
+    reservationDateIndex
+  );
+  let reservationDateNumD = await reservationDate.slice(
+    reservationDateIndex + 1,
+    reservationDate.length
+  );
+
+  if (finishTimeNum.length === 1) finishTimeNum = "0" + finishTimeNum;
+  if (reservationDateNumM.length === 1)
+    reservationDateNumM = "0" + reservationDateNumM;
+  if (reservationDateNumD.length === 1)
+    reservationDateNumD = "0" + reservationDateNumD;
 
   await fetch(
     new URL(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/reservations/`),
@@ -38,10 +55,10 @@ export const createReservation = async ({
         username: username,
         email: email,
         phone_number: phoneNumber,
-        reservation_date: `${thisYear}/${date}`,
+        reservation_date: `${thisYear}/${reservationDate}`,
         start_time: time,
         finish_time: finishTime,
-        reservation_time: `${thisYear}/${date} ${time}`,
+        reservation_time: `${thisYear}${reservationDateNumM}${reservationDateNumD}${finishTimeNum}`,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -105,7 +122,16 @@ export const searchReservation = async (
     )
   );
   const reservations = await res.json();
-  return reservations;
+  const sortedReservations = reservations.sort(
+    (a: Reservation, b: Reservation) => {
+      if (b.reservation_time < a.reservation_time) {
+        return 1;
+      } else {
+        return -1;
+      }
+    }
+  );
+  return sortedReservations;
 };
 
 export const deleteReservation = async (id: string) => {

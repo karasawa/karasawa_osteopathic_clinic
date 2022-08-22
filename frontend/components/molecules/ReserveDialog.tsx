@@ -94,7 +94,7 @@ const ReserveDialog: FC<Props> = ({
               <H3Text>ご予約情報を入力してください</H3Text>
               <ReceptionWrapper>
                 <PText>受付時間</PText>
-                <PText>平日　9:00～13:00　/　15:00～19:00</PText>
+                <PText>平日　9:00～12:00　/　15:00～19:00</PText>
                 <PText style={{ marginBottom: "16px" }}>
                   土曜　9:00～13:00
                 </PText>
@@ -109,7 +109,7 @@ const ReserveDialog: FC<Props> = ({
               <H3Text>直近一週間の予約状況</H3Text>
               <ReceptionWrapper>
                 <PText>受付時間</PText>
-                <PText>平日　9:00～13:00　/　15:00～19:00</PText>
+                <PText>平日　9:00～12:00　/　15:00～19:00</PText>
                 <PText style={{ marginBottom: "16px" }}>
                   土曜　9:00～13:00
                 </PText>

@@ -25,7 +25,7 @@ const SymptomCard: FC<Props> = ({ symptom }) => {
       sx={{
         maxWidth: 345,
         minWidth: 345,
-        height: 295,
+        height: 285,
         color: "#281914",
         mb: 1,
       }}
