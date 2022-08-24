@@ -3,8 +3,9 @@ import { useMediaQuery } from "@mui/material";
 import Layout from "../components/Layout";
 import styled, { keyframes } from "styled-components";
 import Slider from "../components/organisms/Slider";
-
-const Home: NextPage = () => {
+import { memo } from "react";
+// eslint-disable-next-line react/display-name
+const Home: NextPage = memo(() => {
   const matches: boolean = useMediaQuery("(min-width:577px)");
 
   return (
@@ -40,7 +41,7 @@ const Home: NextPage = () => {
       )}
     </div>
   );
-};
+});
 
 export default Home;
 

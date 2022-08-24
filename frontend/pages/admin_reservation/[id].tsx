@@ -9,6 +9,7 @@ import Layout from "../../components/Layout";
 import styled from "styled-components";
 import BuckButton from "../../components/atoms/BuckButton";
 import { useRouter } from "next/router";
+import { memo } from "react";
 
 interface Params extends ParsedUrlQuery {
   id: string;
@@ -46,8 +47,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
     revalidate: 3,
   };
 };
-
-const DetailReservation: NextPage<Props> = ({ reservation }) => {
+// eslint-disable-next-line react/display-name
+const DetailReservation: NextPage<Props> = memo(({ reservation }) => {
   const router = useRouter();
 
   const remove = async () => {
@@ -88,7 +89,7 @@ const DetailReservation: NextPage<Props> = ({ reservation }) => {
       </MainWrapper>
     </Layout>
   );
-};
+});
 
 export default DetailReservation;
 

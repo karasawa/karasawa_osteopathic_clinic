@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import { FC } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import IconButton from "@mui/material/IconButton";
+import { FC, memo } from "react";
 import Link from "next/link";
 
 export type Props = {
@@ -17,8 +14,8 @@ export type Props = {
     created_at: Date;
   };
 };
-
-const ReservationCard: FC<Props> = ({ reservation }) => {
+// eslint-disable-next-line react/display-name
+const ReservationCard: FC<Props> = memo(({ reservation }) => {
   return (
     <Link href={`/admin_reservation/${reservation.id}`}>
       <MainWrapper>
@@ -31,7 +28,7 @@ const ReservationCard: FC<Props> = ({ reservation }) => {
       </MainWrapper>
     </Link>
   );
-};
+});
 
 export default ReservationCard;
 

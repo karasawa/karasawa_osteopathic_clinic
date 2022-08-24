@@ -1,8 +1,9 @@
 import ReplyIcon from "@mui/icons-material/Reply";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-
-const BuckButton = () => {
+import { memo } from "react";
+// eslint-disable-next-line react/display-name
+const BuckButton = memo(() => {
   const router = useRouter();
 
   return (
@@ -11,7 +12,7 @@ const BuckButton = () => {
       <BuckText>前の画面に戻る</BuckText>
     </ButtonWrapper>
   );
-};
+});
 
 export default BuckButton;
 

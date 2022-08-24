@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, FC } from "react";
+import { Dispatch, SetStateAction, FC, memo } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import type { State } from "../molecules/ReserveForm";
 
@@ -6,8 +6,8 @@ type Props = {
   state: State;
   setState: Dispatch<SetStateAction<State>>;
 };
-
-const SnackBar: FC<Props> = ({ state, setState }) => {
+// eslint-disable-next-line react/display-name
+const SnackBar: FC<Props> = memo(({ state, setState }) => {
   const { vertical, horizontal, open } = state;
 
   const handleClose = () => {
@@ -26,6 +26,6 @@ const SnackBar: FC<Props> = ({ state, setState }) => {
       />
     </div>
   );
-};
+});
 
 export default SnackBar;

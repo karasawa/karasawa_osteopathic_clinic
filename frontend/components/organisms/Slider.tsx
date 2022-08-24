@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import IconButton from "@mui/material/IconButton";
 import { useRouter } from "next/router";
-
-const Slider = () => {
+// eslint-disable-next-line react/display-name
+const Slider = memo(() => {
   const router = useRouter();
   const [count, setCount] = useState<number>(1);
 
@@ -91,7 +91,7 @@ const Slider = () => {
       </IconButton>
     </SliderWrapper>
   );
-};
+});
 
 export default Slider;
 

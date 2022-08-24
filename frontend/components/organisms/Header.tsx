@@ -4,7 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import styled, { keyframes } from "styled-components";
 import Link from "next/link";
 import BurgerMenu from "../molecules/BurgerMenu";
-import { useEffect, useState } from "react";
+import { useEffect, memo, useState } from "react";
 import TellDialog from "../molecules/TellDialog";
 import ReserveDialog from "../molecules/ReserveDialog";
 import { useRouter } from "next/router";
@@ -16,8 +16,8 @@ export type Week = {
 };
 
 const cookie = new Cookie();
-
-const Header = () => {
+// eslint-disable-next-line react/display-name
+const Header = memo(() => {
   const [tellOpen, setTellOpen] = useState<boolean>(false);
   const [reserveOpen, setReserveOpen] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -203,15 +203,15 @@ const Header = () => {
           <Link href="#">
             <MenuList>院長紹介</MenuList>
           </Link>
-          {/* <Link href="#">
+          <Link href="#">
             <MenuList>FAQ</MenuList>
-          </Link> */}
+          </Link>
           <Link href="/access">
             <MenuList>アクセス</MenuList>
           </Link>
-          <Link href="/admin_login">
+          {/* <Link href="/admin_login">
             <MenuList>管理者ログイン</MenuList>
-          </Link>
+          </Link> */}
         </MenuWrapper>
       </SlideMenu>
       <TellDialog tellOpen={tellOpen} setTellOpen={setTellOpen} />
@@ -237,7 +237,7 @@ const Header = () => {
       />
     </Box>
   );
-};
+});
 
 export default Header;
 

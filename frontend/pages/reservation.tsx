@@ -1,9 +1,10 @@
 import type { NextPage } from "next";
+import { memo } from "react";
 import styled from "styled-components";
 import Layout from "../components/Layout";
 import ReserveForm from "../components/molecules/ReserveForm";
-
-const Reservation: NextPage = () => {
+// eslint-disable-next-line react/display-name
+const Reservation: NextPage = memo(() => {
   return (
     <Layout title="reservation">
       <MainWrapper>
@@ -11,7 +12,7 @@ const Reservation: NextPage = () => {
       </MainWrapper>
     </Layout>
   );
-};
+});
 
 export default Reservation;
 

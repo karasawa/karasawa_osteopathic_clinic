@@ -1,13 +1,13 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { useState } from "react";
+import { memo, useState } from "react";
 import Cookie from "universal-cookie";
 import { useRouter } from "next/router";
 import { TextField } from "@mui/material";
 
 const cookie = new Cookie();
-
-const AuthForm = () => {
+// eslint-disable-next-line react/display-name
+const AuthForm = memo(() => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLogin, setIsLogin] = useState<boolean>(true);
@@ -100,7 +100,7 @@ const AuthForm = () => {
       </form>
     </MainContainer>
   );
-};
+});
 
 export default AuthForm;
 

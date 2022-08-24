@@ -1,4 +1,4 @@
-import { Fragment, useState, FC } from "react";
+import { Fragment, useState, FC, memo } from "react";
 import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -47,8 +47,8 @@ const schema = yup.object({
   date: yup.string().required("予約日を選択してください"),
   time: yup.string().required("予約時間を選択してください"),
 });
-
-const ReserveForm: FC<Props> = ({ week }) => {
+// eslint-disable-next-line react/display-name
+const ReserveForm: FC<Props> = memo(({ week }) => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
@@ -190,7 +190,7 @@ const ReserveForm: FC<Props> = ({ week }) => {
       </Fragment>
     </LocalizationProvider>
   );
-};
+});
 
 export default ReserveForm;
 

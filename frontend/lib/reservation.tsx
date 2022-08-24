@@ -26,24 +26,27 @@ export const createReservation = async ({
   time,
 }: ReservationFormValue) => {
   const thisYear = await new Date().getFullYear();
+
   const timeIndex = await time.indexOf(":");
   let finishTimeNum = await time.slice(0, timeIndex);
   const finishTime = (await String(Number(finishTimeNum) + 1)) + ":00";
+  if (finishTimeNum.length === 1) finishTimeNum = "0" + finishTimeNum;
+
   const dateIndex = await date.indexOf("（");
   const reservationDate = await date.slice(0, dateIndex);
+
   const reservationDateIndex = await date.indexOf("/");
   let reservationDateNumM = await reservationDate.slice(
     0,
     reservationDateIndex
   );
+  if (reservationDateNumM.length === 1)
+    reservationDateNumM = "0" + reservationDateNumM;
+
   let reservationDateNumD = await reservationDate.slice(
     reservationDateIndex + 1,
     reservationDate.length
   );
-
-  if (finishTimeNum.length === 1) finishTimeNum = "0" + finishTimeNum;
-  if (reservationDateNumM.length === 1)
-    reservationDateNumM = "0" + reservationDateNumM;
   if (reservationDateNumD.length === 1)
     reservationDateNumD = "0" + reservationDateNumD;
 

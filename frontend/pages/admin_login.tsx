@@ -1,8 +1,9 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { memo } from "react";
 import AuthForm from "../components/molecules/AuthForm";
-
-const AdminLogin: NextPage = () => {
+// eslint-disable-next-line react/display-name
+const AdminLogin: NextPage = memo(() => {
   return (
     <div>
       <Head>
@@ -11,6 +12,6 @@ const AdminLogin: NextPage = () => {
       <AuthForm />
     </div>
   );
-};
+});
 
 export default AdminLogin;

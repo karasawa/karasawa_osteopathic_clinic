@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { FC, Dispatch, SetStateAction } from "react";
+import { FC, Dispatch, SetStateAction, memo } from "react";
 import styled from "styled-components";
 import ClearIcon from "@mui/icons-material/Clear";
 import IconButton from "@mui/material/IconButton";
@@ -26,8 +26,8 @@ const style = {
   justifyContent: "center",
   alignItems: "center",
 };
-
-const TellDialog: FC<Props> = ({ tellOpen, setTellOpen }) => {
+// eslint-disable-next-line react/display-name
+const TellDialog: FC<Props> = memo(({ tellOpen, setTellOpen }) => {
   return (
     <div>
       <Modal open={tellOpen} onClose={() => setTellOpen(false)}>
@@ -46,7 +46,7 @@ const TellDialog: FC<Props> = ({ tellOpen, setTellOpen }) => {
       </Modal>
     </div>
   );
-};
+});
 
 export default TellDialog;
 

@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
 import { useMediaQuery } from "@mui/material";
 import Layout from "../components/Layout";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import BuckButton from "../components/atoms/BuckButton";
-
-const Access: NextPage = () => {
+// eslint-disable-next-line react/display-name
+const Access: NextPage = memo(() => {
   const Map = useMemo(
     () =>
       dynamic(() => import("../components/molecules/Map"), {
@@ -52,7 +52,7 @@ const Access: NextPage = () => {
       )}
     </div>
   );
-};
+});
 
 export default Access;
 

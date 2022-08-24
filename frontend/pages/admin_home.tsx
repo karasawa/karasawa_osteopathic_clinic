@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { getAllReservations, searchReservation } from "../lib/reservation";
 import ReservationCard from "../components/molecules/ReservationCard";
 import { TextField } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 type Props = {
   reservations: [
@@ -42,8 +42,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
     },
   };
 };
-
-const AdminHome: NextPage<Props> = ({ reservations }) => {
+// eslint-disable-next-line react/display-name
+const AdminHome: NextPage<Props> = memo(({ reservations }) => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [reservation_date, setReservation_date] = useState<string>("");
@@ -165,7 +165,7 @@ const AdminHome: NextPage<Props> = ({ reservations }) => {
       </MainWrapper>
     </Layout>
   );
-};
+});
 
 export default AdminHome;
 

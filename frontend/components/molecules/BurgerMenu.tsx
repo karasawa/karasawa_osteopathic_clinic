@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { FC, Dispatch, SetStateAction } from "react";
+import { FC, Dispatch, SetStateAction, memo } from "react";
 
 type Props = {
   menuOpen: boolean;
   setMenuOpen: Dispatch<SetStateAction<boolean>>;
 };
-
-const BurgerMenu: FC<Props> = ({ menuOpen, setMenuOpen }) => {
+// eslint-disable-next-line react/display-name
+const BurgerMenu: FC<Props> = memo(({ menuOpen, setMenuOpen }) => {
   return (
     <MainContainer>
       <MainWrapper onClick={() => setMenuOpen(!menuOpen)}>
@@ -34,7 +34,7 @@ const BurgerMenu: FC<Props> = ({ menuOpen, setMenuOpen }) => {
       </MainWrapper>
     </MainContainer>
   );
-};
+});
 
 export default BurgerMenu;
 

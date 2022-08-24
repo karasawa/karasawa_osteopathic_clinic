@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, memo, ReactNode } from "react";
 import Head from "next/head";
 import styled from "styled-components";
 import Header from "./organisms/Header";
@@ -7,8 +7,8 @@ type Props = {
   children: ReactNode;
   title: string;
 };
-
-const Layout: FC<Props> = ({ children, title = "default title" }) => {
+// eslint-disable-next-line react/display-name
+const Layout: FC<Props> = memo(({ children, title = "default title" }) => {
   return (
     <MainContainer>
       <Head>
@@ -19,7 +19,7 @@ const Layout: FC<Props> = ({ children, title = "default title" }) => {
       <footer></footer>
     </MainContainer>
   );
-};
+});
 
 export default Layout;
 

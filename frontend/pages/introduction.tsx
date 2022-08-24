@@ -6,8 +6,9 @@ import Image from "next/image";
 import BuckButton from "../components/atoms/BuckButton";
 import Slider from "../components/organisms/Slider";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-
-const Introduction: NextPage = () => {
+import { memo } from "react";
+// eslint-disable-next-line react/display-name
+const Introduction: NextPage = memo(() => {
   const matches: boolean = useMediaQuery("(min-width:577px)");
 
   return (
@@ -93,7 +94,7 @@ const Introduction: NextPage = () => {
       )}
     </div>
   );
-};
+});
 
 export default Introduction;
 

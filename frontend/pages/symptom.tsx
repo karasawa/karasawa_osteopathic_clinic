@@ -4,6 +4,7 @@ import styled from "styled-components";
 import SymptomCard from "../components/molecules/SymptomCard";
 import { getAllSymptoms } from "../lib/symptoms";
 import BuckButton from "../components/atoms/BuckButton";
+import { memo } from "react";
 
 type Props = {
   symptoms: [
@@ -40,8 +41,8 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     revalidate: 3,
   };
 };
-
-const Symptom: NextPage<Props> = ({ symptoms }) => {
+// eslint-disable-next-line react/display-name
+const Symptom: NextPage<Props> = memo(({ symptoms }) => {
   return (
     <Layout title="symptom">
       <MainWrapper>
@@ -58,7 +59,7 @@ const Symptom: NextPage<Props> = ({ symptoms }) => {
       </MainWrapper>
     </Layout>
   );
-};
+});
 
 export default Symptom;
 

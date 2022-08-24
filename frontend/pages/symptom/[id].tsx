@@ -4,6 +4,7 @@ import Layout from "../../components/Layout";
 import { getAllSymptomIds, getSymptom } from "../../lib/symptoms";
 import styled from "styled-components";
 import BuckButton from "../../components/atoms/BuckButton";
+import { memo } from "react";
 
 interface Params extends ParsedUrlQuery {
   id: string;
@@ -41,8 +42,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
     revalidate: 3,
   };
 };
-
-const DetailSymptom: NextPage<Props> = ({ symptom }) => {
+// eslint-disable-next-line react/display-name
+const DetailSymptom: NextPage<Props> = memo(({ symptom }) => {
   return (
     <Layout title={symptom.id}>
       <MainWrapper>
@@ -64,7 +65,7 @@ const DetailSymptom: NextPage<Props> = ({ symptom }) => {
       </MainWrapper>
     </Layout>
   );
-};
+});
 
 export default DetailSymptom;
 

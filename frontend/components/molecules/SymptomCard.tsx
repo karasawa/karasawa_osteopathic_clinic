@@ -3,7 +3,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import styled from "styled-components";
-import { FC } from "react";
+import { FC, memo } from "react";
 import Link from "next/link";
 
 type Props = {
@@ -18,8 +18,8 @@ type Props = {
     created_at: Date;
   };
 };
-
-const SymptomCard: FC<Props> = ({ symptom }) => {
+// eslint-disable-next-line react/display-name
+const SymptomCard: FC<Props> = memo(({ symptom }) => {
   return (
     <Card
       sx={{
@@ -47,7 +47,7 @@ const SymptomCard: FC<Props> = ({ symptom }) => {
       </CardActions>
     </Card>
   );
-};
+});
 
 export default SymptomCard;
 
