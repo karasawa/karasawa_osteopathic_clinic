@@ -9,7 +9,8 @@ import Layout from "../../components/Layout";
 import styled from "styled-components";
 import BuckButton from "../../components/atoms/BuckButton";
 import { useRouter } from "next/router";
-import { memo } from "react";
+import { memo, useEffect } from "react";
+import Cookie from "universal-cookie";
 
 interface Params extends ParsedUrlQuery {
   id: string;
@@ -27,6 +28,8 @@ type Props = {
     created_at: Date;
   };
 };
+
+const cookie = new Cookie();
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const paths = await getAllReservationIds();
@@ -50,6 +53,11 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
 // eslint-disable-next-line react/display-name
 const DetailReservation: NextPage<Props> = memo(({ reservation }) => {
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof cookie.get("access_token") === "undefined")
+      router.push("/admin_login");
+  }, [cookie.get("access_token")]);
 
   const remove = async () => {
     const res = await deleteReservation(reservation.id);

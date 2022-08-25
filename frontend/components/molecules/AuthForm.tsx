@@ -78,6 +78,10 @@ const AuthForm = memo(() => {
               label="ユーザー名"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              sx={{
+                background: "#fff",
+                borderRadius: "5px",
+              }}
             />
             <TextField
               size="small"
@@ -87,6 +91,8 @@ const AuthForm = memo(() => {
               onChange={(e) => setPassword(e.target.value)}
               sx={{
                 marginTop: "30px",
+                background: "#fff",
+                borderRadius: "5px",
               }}
             />
           </SubWrapper>
@@ -147,11 +153,13 @@ const H3Text = styled.h3`
 const H5Text = styled.h5`
   text-align: right;
   cursor: pointer;
-  color: #b4cf9e;
+  color: #281914;
 `;
 
 const A = styled.a`
-  color: #50b7f5;
   cursor: pointer;
-  color: #b4cf9e;
+  color: #281914;
+  &:hover {
+    color: #74905d;
+  }
 `;

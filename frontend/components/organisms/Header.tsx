@@ -175,9 +175,13 @@ const Header = memo(() => {
                 <Title>柄澤整骨院</Title>
               </Link>
             </TitleWrapper>
-            <BurgerMenuWrapper>
-              <BurgerMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-            </BurgerMenuWrapper>
+            {typeof cookie.get("access_token") !== "undefined" ? (
+              <div style={{ flex: 0.2 }}></div>
+            ) : (
+              <BurgerMenuWrapper>
+                <BurgerMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+              </BurgerMenuWrapper>
+            )}
           </MainWrapper>
         </Toolbar>
       </AppBar>
@@ -209,9 +213,6 @@ const Header = memo(() => {
           <Link href="/access">
             <MenuList>アクセス</MenuList>
           </Link>
-          {/* <Link href="/admin_login">
-            <MenuList>管理者ログイン</MenuList>
-          </Link> */}
         </MenuWrapper>
       </SlideMenu>
       <TellDialog tellOpen={tellOpen} setTellOpen={setTellOpen} />

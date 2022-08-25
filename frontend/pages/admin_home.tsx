@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { getAllReservations, searchReservation } from "../lib/reservation";
 import ReservationCard from "../components/molecules/ReservationCard";
 import { TextField } from "@mui/material";
-import { memo, useState } from "react";
+import { memo, useState, useEffect } from "react";
+import Cookie from "universal-cookie";
+import { useRouter } from "next/router";
 
 type Props = {
   reservations: [
@@ -42,8 +44,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
     },
   };
 };
+
+const cookie = new Cookie();
+
 // eslint-disable-next-line react/display-name
 const AdminHome: NextPage<Props> = memo(({ reservations }) => {
+  const router = useRouter();
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [reservation_date, setReservation_date] = useState<string>("");
@@ -61,6 +67,11 @@ const AdminHome: NextPage<Props> = memo(({ reservations }) => {
       created_at: Date;
     }[]
   >([]);
+
+  useEffect(() => {
+    if (typeof cookie.get("access_token") === "undefined")
+      router.push("/admin_login");
+  }, [cookie.get("access_token")]);
 
   const search = async () => {
     if (
