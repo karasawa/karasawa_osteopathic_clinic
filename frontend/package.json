@@ -20,6 +20,7 @@
     "@types/slick-carousel": "^1.6.37",
     "babel-plugin-styled-components": "^2.0.7",
     "date-fns": "^2.29.1",
+    "japanese-holidays": "^1.0.10",
     "keen-slider": "^6.7.0",
     "leaflet": "^1.8.0",
     "next": "12.2.3",

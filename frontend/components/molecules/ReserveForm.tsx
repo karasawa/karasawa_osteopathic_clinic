@@ -136,7 +136,7 @@ const ReserveForm: FC<Props> = memo(({ week }) => {
                     return (
                       <MenuItem
                         key={oneDay.date}
-                        value={`${oneDay.date}（${oneDay.day}）`}
+                        value={`${oneDay.date}（$（${oneDay.day}）`}
                       >
                         {oneDay.date}（{oneDay.day}）
                       </MenuItem>
@@ -158,9 +158,9 @@ const ReserveForm: FC<Props> = memo(({ week }) => {
                   label="予約時間"
                   onChange={(e) => setTime(e.target.value)}
                 >
-                  <MenuItem value={"9:00"}>9:00</MenuItem>
-                  <MenuItem value={"10:00"}>10:00</MenuItem>
-                  <MenuItem value={"11:00"}>11:00</MenuItem>
+                  <MenuItem value={"9"}>9:00</MenuItem>
+                  <MenuItem value={"10"}>10:00</MenuItem>
+                  <MenuItem value={"11"}>11:00</MenuItem>
                 </Select>
               ) : (
                 <Select
@@ -170,13 +170,13 @@ const ReserveForm: FC<Props> = memo(({ week }) => {
                   label="予約時間"
                   onChange={(e) => setTime(e.target.value)}
                 >
-                  <MenuItem value={"9:00"}>9:00</MenuItem>
-                  <MenuItem value={"10:00"}>10:00</MenuItem>
-                  <MenuItem value={"11:00"}>11:00</MenuItem>
-                  <MenuItem value={"15:00"}>15:00</MenuItem>
-                  <MenuItem value={"16:00"}>16:00</MenuItem>
-                  <MenuItem value={"17:00"}>17:00</MenuItem>
-                  <MenuItem value={"18:00"}>18:00</MenuItem>
+                  <MenuItem value={"9"}>9:00</MenuItem>
+                  <MenuItem value={"10"}>10:00</MenuItem>
+                  <MenuItem value={"11"}>11:00</MenuItem>
+                  <MenuItem value={"15"}>15:00</MenuItem>
+                  <MenuItem value={"16"}>16:00</MenuItem>
+                  <MenuItem value={"17"}>17:00</MenuItem>
+                  <MenuItem value={"18"}>18:00</MenuItem>
                 </Select>
               )}
               <FormHelperText sx={{ color: "#D95555" }}>

@@ -134,7 +134,13 @@ const ReserveDialog: FC<Props> = memo(
                         <>
                           <th
                             style={
-                              oneDay.day === "日"
+                              oneDay.holiday
+                                ? {
+                                    border: "1px solid gray",
+                                    fontWeight: 300,
+                                    color: "red",
+                                  }
+                                : oneDay.day === "日"
                                 ? {
                                     border: "1px solid gray",
                                     fontWeight: 300,

@@ -27,28 +27,28 @@ export const createReservation = async ({
 }: ReservationFormValue) => {
   const thisYear = await new Date().getFullYear();
 
-  const timeIndex = await time.indexOf(":");
-  let finishTimeNum = await time.slice(0, timeIndex);
-  const finishTime = (await String(Number(finishTimeNum) + 1)) + ":00";
-  if (finishTimeNum.length === 1) finishTimeNum = "0" + finishTimeNum;
+  const startTimeNum = Number(time);
+  const finishTimeNum = startTimeNum + 1;
+  let startTimeStr = String(startTimeNum);
+  if (time.length === 1) {
+    startTimeStr = "0" + startTimeStr;
+  }
+  const finishTimeStr = String(finishTimeNum);
+  const startTime = startTimeStr + ":00";
+  const finishTime = finishTimeStr + ":00";
 
-  const dateIndex = await date.indexOf("（");
-  const reservationDate = await date.slice(0, dateIndex);
-
-  const reservationDateIndex = await date.indexOf("/");
-  let reservationDateNumM = await reservationDate.slice(
-    0,
-    reservationDateIndex
+  const removeIndex = await date.indexOf("（");
+  const dayRemovedDate = await date.slice(0, removeIndex);
+  const dateIndex = await dayRemovedDate.indexOf("/");
+  let reservationDateM = await dayRemovedDate.slice(0, dateIndex);
+  let reservationDateD = await dayRemovedDate.slice(
+    dateIndex + 1,
+    dayRemovedDate.length
   );
-  if (reservationDateNumM.length === 1)
-    reservationDateNumM = "0" + reservationDateNumM;
 
-  let reservationDateNumD = await reservationDate.slice(
-    reservationDateIndex + 1,
-    reservationDate.length
-  );
-  if (reservationDateNumD.length === 1)
-    reservationDateNumD = "0" + reservationDateNumD;
+  if (reservationDateM.length === 1) reservationDateM = "0" + reservationDateM;
+
+  if (reservationDateD.length === 1) reservationDateD = "0" + reservationDateD;
 
   await fetch(
     new URL(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/reservations/`),
@@ -58,10 +58,11 @@ export const createReservation = async ({
         username: username,
         email: email,
         phone_number: phoneNumber,
-        reservation_date: `${thisYear}/${reservationDate}`,
-        start_time: time,
+        reservation_date: `${thisYear}/${reservationDateM}/${reservationDateD}`,
+        start_time: startTime,
         finish_time: finishTime,
-        reservation_time: `${thisYear}${reservationDateNumM}${reservationDateNumD}${finishTimeNum}`,
+        reservation_time: `${thisYear}${reservationDateM}${reservationDateD}${startTimeStr}`,
+        reservation_date_sub: `${thisYear}/${dayRemovedDate}`,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -152,4 +153,12 @@ export const deleteReservation = async (id: string) => {
   ).then((res) => {
     return res;
   });
+};
+
+export const getHolidays = async () => {
+  const res = await fetch(
+    new URL("https://holidays-jp.github.io/api/v1/date.json")
+  );
+  const holidays = await res.json();
+  return holidays;
 };

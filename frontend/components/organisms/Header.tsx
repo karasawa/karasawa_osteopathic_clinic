@@ -13,6 +13,7 @@ import Cookie from "universal-cookie";
 export type Week = {
   date: string;
   day: string;
+  holiday: string;
 };
 
 const cookie = new Cookie();
@@ -37,88 +38,90 @@ const Header = memo(() => {
   };
 
   const openReserveDialog = async () => {
-    var before = await new Date();
+    var today = await new Date();
     for (var i = 0; i < 7; i++) {
-      const date = before.getMonth() + 1 + "/" + before.getDate();
-      const day = before.getDay();
+      const JapaneseHolidays = require("japanese-holidays");
+      const holiday = JapaneseHolidays.isHoliday(today);
+      const date = today.getMonth() + 1 + "/" + today.getDate();
+      const day = today.getDay();
       const dayStr = ["日", "月", "火", "水", "木", "金", "土"][day];
-      await week.push({ date: date, day: dayStr });
-      await before.setDate(before.getDate() + 1);
+      await week.push({ date: date, day: dayStr, holiday: holiday });
+      await today.setDate(today.getDate() + 1);
     }
     const thisYear = await new Date().getFullYear();
     for (var i = 0; i < week.length; i++) {
-      if (week[i].day === "日") {
+      if (week[i].day === "日" || week[i].holiday) {
         reservationCount1.push(-1);
         continue;
       }
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i].date}&start_time=9:00`
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date_sub=${thisYear}/${week[i].date}&start_time=09:00`
       );
       const reservation = await res.json();
       await reservationCount1.push(reservation.length);
     }
     for (var i = 0; i < week.length; i++) {
-      if (week[i].day === "日") {
+      if (week[i].day === "日" || week[i].holiday) {
         reservationCount2.push(-1);
         continue;
       }
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i].date}&start_time=10:00`
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date_sub=${thisYear}/${week[i].date}&start_time=10:00`
       );
       const reservation = await res.json();
       await reservationCount2.push(reservation.length);
     }
     for (var i = 0; i < week.length; i++) {
-      if (week[i].day === "日") {
+      if (week[i].day === "日" || week[i].holiday) {
         reservationCount3.push(-1);
         continue;
       }
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i].date}&start_time=11:00`
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date_sub=${thisYear}/${week[i].date}&start_time=11:00`
       );
       const reservation = await res.json();
       await reservationCount3.push(reservation.length);
     }
     for (var i = 0; i < week.length; i++) {
-      if (week[i].day === "日" || week[i].day === "土") {
+      if (week[i].day === "日" || week[i].day === "土" || week[i].holiday) {
         reservationCount4.push(-1);
         continue;
       }
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i].date}&start_time=15:00`
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date_sub=${thisYear}/${week[i].date}&start_time=15:00`
       );
       const reservation = await res.json();
       await reservationCount4.push(reservation.length);
     }
     for (var i = 0; i < week.length; i++) {
-      if (week[i].day === "日" || week[i].day === "土") {
+      if (week[i].day === "日" || week[i].day === "土" || week[i].holiday) {
         reservationCount5.push(-1);
         continue;
       }
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i].date}&start_time=16:00`
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date_sub=${thisYear}/${week[i].date}&start_time=16:00`
       );
       const reservation = await res.json();
       await reservationCount5.push(reservation.length);
     }
     for (var i = 0; i < week.length; i++) {
-      if (week[i].day === "日" || week[i].day === "土") {
+      if (week[i].day === "日" || week[i].day === "土" || week[i].holiday) {
         reservationCount6.push(-1);
         continue;
       }
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i].date}&start_time=17:00`
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date_sub=${thisYear}/${week[i].date}&start_time=17:00`
       );
       const reservation = await res.json();
       await reservationCount6.push(reservation.length);
     }
     for (var i = 0; i < week.length; i++) {
-      if (week[i].day === "日" || week[i].day === "土") {
+      if (week[i].day === "日" || week[i].day === "土" || week[i].holiday) {
         reservationCount7.push(-1);
         continue;
       }
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date=${thisYear}/${week[i].date}&start_time=18:00`
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-reservation/?reservation_date_sub=${thisYear}/${week[i].date}&start_time=18:00`
       );
       const reservation = await res.json();
       await reservationCount7.push(reservation.length);

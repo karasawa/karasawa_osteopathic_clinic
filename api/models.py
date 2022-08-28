@@ -5,6 +5,7 @@ class Reservation(models.Model):
     email = models.EmailField()
     phone_number = models.CharField(max_length=20)
     reservation_date = models.CharField(max_length=20)
+    reservation_date_sub = models.CharField(max_length=20, null=True, blank=True)
     reservation_time = models.CharField(max_length=20, null=True, blank=True)
     start_time = models.CharField(max_length=20)
     finish_time = models.CharField(max_length=20)
