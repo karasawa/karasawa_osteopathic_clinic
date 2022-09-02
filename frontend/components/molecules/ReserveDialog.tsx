@@ -6,10 +6,11 @@ import ClearIcon from "@mui/icons-material/Clear";
 import IconButton from "@mui/material/IconButton";
 import ReserveForm from "./ReserveForm";
 import type { Week } from "../organisms/Header";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { closeDialog } from "../../features/reserveDialog/reserveDialogSilice";
 
 type Props = {
-  reserveOpen: boolean;
-  setReserveOpen: Dispatch<SetStateAction<boolean>>;
   week: Week[];
   setWeek: Dispatch<SetStateAction<Week[]>>;
   reservationCount1: number[];
@@ -47,8 +48,6 @@ const style = {
 // eslint-disable-next-line react/display-name
 const ReserveDialog: FC<Props> = memo(
   ({
-    reserveOpen,
-    setReserveOpen,
     week,
     setWeek,
     reservationCount1,
@@ -67,6 +66,9 @@ const ReserveDialog: FC<Props> = memo(
     setReservationCount7,
   }) => {
     const [mode, setMode] = useState<boolean>(true);
+    const { isOpen } = useSelector((state: RootState) => state.reserveDialog);
+    const dispatch = useDispatch();
+
     const closeReserveDialog = async () => {
       await setWeek([]);
       await setReservationCount1([]);
@@ -77,12 +79,12 @@ const ReserveDialog: FC<Props> = memo(
       await setReservationCount6([]);
       await setReservationCount7([]);
       await setMode(true);
-      await setReserveOpen(false);
+      await dispatch(closeDialog());
     };
 
     return (
       <div>
-        <Modal open={reserveOpen} onClose={closeReserveDialog}>
+        <Modal open={isOpen} onClose={closeReserveDialog}>
           <Box sx={style}>
             <IconButton
               onClick={closeReserveDialog}

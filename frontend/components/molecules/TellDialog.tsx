@@ -1,14 +1,12 @@
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { FC, Dispatch, SetStateAction, memo } from "react";
+import { memo } from "react";
 import styled from "styled-components";
 import ClearIcon from "@mui/icons-material/Clear";
 import IconButton from "@mui/material/IconButton";
-
-type Props = {
-  tellOpen: boolean;
-  setTellOpen: Dispatch<SetStateAction<boolean>>;
-};
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { closeDialog } from "../../features/tellDialog/tellDialogSlice";
 
 const style = {
   position: "absolute" as "absolute",
@@ -27,13 +25,16 @@ const style = {
   alignItems: "center",
 };
 // eslint-disable-next-line react/display-name
-const TellDialog: FC<Props> = memo(({ tellOpen, setTellOpen }) => {
+const TellDialog = memo(() => {
+  const { isOpen } = useSelector((state: RootState) => state.tellDialog);
+  const dispatch = useDispatch();
+
   return (
     <div>
-      <Modal open={tellOpen} onClose={() => setTellOpen(false)}>
+      <Modal open={isOpen} onClose={() => dispatch(closeDialog())}>
         <Box sx={style}>
           <IconButton
-            onClick={() => setTellOpen(false)}
+            onClick={() => dispatch(closeDialog())}
             sx={{ position: "absolute", top: 0, right: 0 }}
           >
             <ClearIcon />

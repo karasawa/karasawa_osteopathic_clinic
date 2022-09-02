@@ -9,6 +9,9 @@ import TellDialog from "../molecules/TellDialog";
 import ReserveDialog from "../molecules/ReserveDialog";
 import { useRouter } from "next/router";
 import Cookie from "universal-cookie";
+import { useDispatch } from "react-redux";
+import { openDialog } from "../../features/reserveDialog/reserveDialogSilice";
+import { openDialog as openModal } from "../../features/tellDialog/tellDialogSlice";
 
 export type Week = {
   date: string;
@@ -19,8 +22,6 @@ export type Week = {
 const cookie = new Cookie();
 // eslint-disable-next-line react/display-name
 const Header = memo(() => {
-  const [tellOpen, setTellOpen] = useState<boolean>(false);
-  const [reserveOpen, setReserveOpen] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [week, setWeek] = useState<Week[]>([]);
   const [reservationCount1, setReservationCount1] = useState<number[]>([]);
@@ -31,6 +32,7 @@ const Header = memo(() => {
   const [reservationCount6, setReservationCount6] = useState<number[]>([]);
   const [reservationCount7, setReservationCount7] = useState<number[]>([]);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const logout = () => {
     cookie.remove("access_token", { path: "/" });
@@ -126,7 +128,7 @@ const Header = memo(() => {
       const reservation = await res.json();
       await reservationCount7.push(reservation.length);
     }
-    await setReserveOpen(true);
+    await dispatch(openDialog());
   };
 
   let ButtonComponent;
@@ -139,7 +141,7 @@ const Header = memo(() => {
   } else {
     ButtonComponent = (
       <ButtonWrapper>
-        <TellButton onClick={() => setTellOpen(true)}>電話する</TellButton>
+        <TellButton onClick={() => dispatch(openModal())}>電話する</TellButton>
         <ReserveButton onClick={openReserveDialog}>予約する</ReserveButton>
       </ButtonWrapper>
     );
@@ -218,10 +220,8 @@ const Header = memo(() => {
           </Link>
         </MenuWrapper>
       </SlideMenu>
-      <TellDialog tellOpen={tellOpen} setTellOpen={setTellOpen} />
+      <TellDialog />
       <ReserveDialog
-        reserveOpen={reserveOpen}
-        setReserveOpen={setReserveOpen}
         week={week}
         setWeek={setWeek}
         reservationCount1={reservationCount1}
