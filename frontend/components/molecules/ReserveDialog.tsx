@@ -171,6 +171,7 @@ const ReserveDialog: FC<Props> = memo(
                         style={{
                           textAlign: "center",
                           border: "1px solid gray",
+                          padding: "3px",
                         }}
                       >
                         9:00~
@@ -181,6 +182,7 @@ const ReserveDialog: FC<Props> = memo(
                             style={{
                               textAlign: "center",
                               border: "1px solid gray",
+                              padding: "3px",
                             }}
                             key={count}
                           >
@@ -200,6 +202,7 @@ const ReserveDialog: FC<Props> = memo(
                         style={{
                           textAlign: "center",
                           border: "1px solid gray",
+                          padding: "3px",
                         }}
                       >
                         10:00~
@@ -210,6 +213,7 @@ const ReserveDialog: FC<Props> = memo(
                             style={{
                               textAlign: "center",
                               border: "1px solid gray",
+                              padding: "3px",
                             }}
                             key={count}
                           >
@@ -229,6 +233,7 @@ const ReserveDialog: FC<Props> = memo(
                         style={{
                           textAlign: "center",
                           border: "1px solid gray",
+                          padding: "3px",
                         }}
                       >
                         11:00~
@@ -239,6 +244,7 @@ const ReserveDialog: FC<Props> = memo(
                             style={{
                               textAlign: "center",
                               border: "1px solid gray",
+                              padding: "3px",
                             }}
                             key={count}
                           >
@@ -258,6 +264,7 @@ const ReserveDialog: FC<Props> = memo(
                         style={{
                           textAlign: "center",
                           border: "1px solid gray",
+                          padding: "3px",
                         }}
                       >
                         15:00~
@@ -268,6 +275,7 @@ const ReserveDialog: FC<Props> = memo(
                             style={{
                               textAlign: "center",
                               border: "1px solid gray",
+                              padding: "3px",
                             }}
                             key={count}
                           >
@@ -287,6 +295,7 @@ const ReserveDialog: FC<Props> = memo(
                         style={{
                           textAlign: "center",
                           border: "1px solid gray",
+                          padding: "3px",
                         }}
                       >
                         16:00~
@@ -297,6 +306,7 @@ const ReserveDialog: FC<Props> = memo(
                             style={{
                               textAlign: "center",
                               border: "1px solid gray",
+                              padding: "3px",
                             }}
                             key={count}
                           >
@@ -316,6 +326,7 @@ const ReserveDialog: FC<Props> = memo(
                         style={{
                           textAlign: "center",
                           border: "1px solid gray",
+                          padding: "3px",
                         }}
                       >
                         17:00~
@@ -326,6 +337,7 @@ const ReserveDialog: FC<Props> = memo(
                             style={{
                               textAlign: "center",
                               border: "1px solid gray",
+                              padding: "3px",
                             }}
                             key={count}
                           >
@@ -345,6 +357,7 @@ const ReserveDialog: FC<Props> = memo(
                         style={{
                           textAlign: "center",
                           border: "1px solid gray",
+                          padding: "3px",
                         }}
                       >
                         18:00~
@@ -355,6 +368,7 @@ const ReserveDialog: FC<Props> = memo(
                             style={{
                               textAlign: "center",
                               border: "1px solid gray",
+                              padding: "3px",
                             }}
                             key={count}
                           >

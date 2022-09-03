@@ -1,32 +1,34 @@
 import styled from "styled-components";
-import { FC, Dispatch, SetStateAction, memo } from "react";
+import { memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleMenu } from "../../features/burgerMenu/burgerMenuSlice";
+import { RootState } from "../../store";
 
-type Props = {
-  menuOpen: boolean;
-  setMenuOpen: Dispatch<SetStateAction<boolean>>;
-};
 // eslint-disable-next-line react/display-name
-const BurgerMenu: FC<Props> = memo(({ menuOpen, setMenuOpen }) => {
+const BurgerMenu = memo(() => {
+  const { isOpen } = useSelector((state: RootState) => state.burgerMenu);
+  const dispatch = useDispatch();
+
   return (
     <MainContainer>
-      <MainWrapper onClick={() => setMenuOpen(!menuOpen)}>
+      <MainWrapper onClick={() => dispatch(toggleMenu())}>
         <FirstBar
           style={
-            menuOpen
+            isOpen
               ? { transform: "translateY(10px) rotate(-225deg)" }
               : { transform: "none" }
           }
         ></FirstBar>
         <SecondBar
           style={
-            menuOpen
+            isOpen
               ? { backgroundColor: "#000" }
               : { backgroundColor: "#B4CF9E" }
           }
         ></SecondBar>
         <ThirdBar
           style={
-            menuOpen
+            isOpen
               ? { transform: "translateY(-10px) rotate(225deg)" }
               : { transform: "none" }
           }

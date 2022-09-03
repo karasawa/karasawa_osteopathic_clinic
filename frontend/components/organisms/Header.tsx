@@ -9,9 +9,11 @@ import TellDialog from "../molecules/TellDialog";
 import ReserveDialog from "../molecules/ReserveDialog";
 import { useRouter } from "next/router";
 import Cookie from "universal-cookie";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openDialog } from "../../features/reserveDialog/reserveDialogSilice";
 import { openDialog as openModal } from "../../features/tellDialog/tellDialogSlice";
+import { RootState } from "../../store";
+import { closeMenu } from "../../features/burgerMenu/burgerMenuSlice";
 
 export type Week = {
   date: string;
@@ -22,7 +24,6 @@ export type Week = {
 const cookie = new Cookie();
 // eslint-disable-next-line react/display-name
 const Header = memo(() => {
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [week, setWeek] = useState<Week[]>([]);
   const [reservationCount1, setReservationCount1] = useState<number[]>([]);
   const [reservationCount2, setReservationCount2] = useState<number[]>([]);
@@ -32,6 +33,7 @@ const Header = memo(() => {
   const [reservationCount6, setReservationCount6] = useState<number[]>([]);
   const [reservationCount7, setReservationCount7] = useState<number[]>([]);
   const router = useRouter();
+  const { isOpen } = useSelector((state: RootState) => state.burgerMenu);
   const dispatch = useDispatch();
 
   const logout = () => {
@@ -184,7 +186,7 @@ const Header = memo(() => {
               <div style={{ flex: 0.2 }}></div>
             ) : (
               <BurgerMenuWrapper>
-                <BurgerMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+                <BurgerMenu />
               </BurgerMenuWrapper>
             )}
           </MainWrapper>
@@ -192,31 +194,33 @@ const Header = memo(() => {
       </AppBar>
       <SlideMenu
         style={
-          menuOpen
+          isOpen
             ? {
                 width: "300px",
               }
             : { width: 0, height: 0 }
         }
       >
-        <MenuWrapper style={menuOpen ? {} : { display: "none" }}>
+        <MenuWrapper style={isOpen ? {} : { display: "none" }}>
           <Link href="/">
-            <MenuList>ホーム</MenuList>
+            <MenuList onClick={() => dispatch(closeMenu())}>ホーム</MenuList>
           </Link>
           <Link href="/introduction">
-            <MenuList>当院の特徴</MenuList>
+            <MenuList onClick={() => dispatch(closeMenu())}>
+              当院の特徴
+            </MenuList>
           </Link>
           <Link href="/symptom">
-            <MenuList>対応症状</MenuList>
+            <MenuList onClick={() => dispatch(closeMenu())}>対応症状</MenuList>
           </Link>
-          <Link href="#">
-            <MenuList>院長紹介</MenuList>
+          <Link href="/director_introduction">
+            <MenuList onClick={() => dispatch(closeMenu())}>院長紹介</MenuList>
           </Link>
-          <Link href="#">
-            <MenuList>FAQ</MenuList>
+          <Link href="/faq">
+            <MenuList onClick={() => dispatch(closeMenu())}>FAQ</MenuList>
           </Link>
           <Link href="/access">
-            <MenuList>アクセス</MenuList>
+            <MenuList onClick={() => dispatch(closeMenu())}>アクセス</MenuList>
           </Link>
         </MenuWrapper>
       </SlideMenu>
